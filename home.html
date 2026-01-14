@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flash Line Cargo Service</title>
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: radial-gradient(circle at top, #1a3b5d, #0b1620 70%);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    body.preload * {
+      animation: none !important;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .fade-delay-1 { animation-delay: 0.3s; }
+    .fade-delay-2 { animation-delay: 0.6s; }
+    .fade-delay-3 { animation-delay: 0.9s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      background: rgba(15, 32, 39, 0.6);
+      backdrop-filter: blur(14px);
+      padding: 20px 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      animation: slideDown 1s ease forwards;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    header .logo img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(255,204,0,0.8);
+      animation: logoFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+    header h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 35px !important;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #ffcc00, #ff9900);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav a {
+      color: #eaeaea;
+      text-decoration: none;
+      margin-left: 30px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ffcc00, #ff9900);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after { width: 100%; }
+
+    .hero {
+      padding: 120px 40px 160px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)), 
+	  url("images/index-bg.jpg") center/cover no-repeat;
+    }
+
+    .hero h2 {
+      font-size: 56px;
+      margin-bottom: 25px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #ffcc00, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 22px;
+      max-width: 900px;
+      margin: auto;
+      line-height: 1.7;
+      color: #ddd;
+    }
+
+    .hero button {
+      margin-top: 40px;
+      padding: 16px 42px;
+      font-size: 18px;
+      border: none;
+      background: linear-gradient(135deg, #ffcc00, #ff9900);
+      color: #000;
+      cursor: pointer;
+      border-radius: 40px;
+      font-weight: 600;
+      box-shadow: 0 15px 35px rgba(255,153,0,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .hero button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 25px 50px rgba(255,153,0,0.6);
+    }
+
+    .cargo-icons { position: absolute; inset: 0; pointer-events: none; }
+    .cargo-icon { position: absolute; font-size: 52px; opacity: 0.8; }
+
+    .plane { top: 18%; left: -10%; animation: flyPlane 14s linear infinite; }
+    .ship { bottom: 18%; left: -15%; animation: sailShip 20s linear infinite; }
+    .truck { bottom: 6%; right: -20%; animation: driveTruck 18s linear infinite; }
+
+    @keyframes flyPlane { to { transform: translateX(140vw) translateY(-40px); } }
+    @keyframes sailShip { to { transform: translateX(140vw); } }
+    @keyframes driveTruck { to { transform: translateX(-140vw); } }
+
+    .services {
+      padding: 100px 50px;
+      background: #ffffff;
+      color: #222;
+    }
+
+    .services h3 {
+      text-align: center;
+      font-size: 42px;
+      margin-bottom: 60px;
+      font-weight: 700;
+      color: #0f2027;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+    }
+
+    .service-box {
+      background: linear-gradient(145deg, #ffffff, #f1f1f1);
+      padding: 40px 30px;
+      border-radius: 28px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+
+    .service-box:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 35px 70px rgba(0,0,0,0.18);
+    }
+
+    .service-box h4 {
+      font-size: 24px;
+      margin-bottom: 18px;
+      color: #ff9900;
+    }
+
+    .service-box p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .about {
+      padding: 100px 50px;
+      background: linear-gradient(135deg, #0f2027, #203a43);
+      text-align: center;
+    }
+
+    .about h3 {
+      font-size: 42px;
+      margin-bottom: 25px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #ffcc00, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .about p {
+      max-width: 950px;
+      margin: auto;
+      font-size: 20px;
+      line-height: 1.8;
+      color: #ddd;
+    }
+
+    footer {
+      background: #0b1620;
+      padding: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .floating-contact {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 999;
+    }
+
+    .floating-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+      animation: pulse 2.5s infinite;
+      transition: transform 0.3s;
+    }
+
+    .floating-btn:hover { transform: scale(1.1); }
+
+    .whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
+    .call { background: linear-gradient(135deg, #ffcc00, #ff9900); color: #000; }
+    .email { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #000; }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+      70% { box-shadow: 0 0 0 18px rgba(255,255,255,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+    }
+	
+		.marquee {
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(90deg, #ffcc00, #ff9900);
+  color: #000;
+  padding: 12px 0;
+  white-space: nowrap;
+}
+
+.marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 15s linear infinite;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.marquee2 {
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(90deg, #ff9900, #ffcc00);
+  color: #000;
+  padding: 12px 0;
+  white-space: nowrap;
+}
+
+.marquee2 span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 15s linear infinite;
+  font-weight: 800;
+  font-size: 30px;
+  font-family: Montserrat;
+}
+
+@keyframes marquee2 {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+  </style>
+
+<style>
+.page-hero{
+  position:relative;
+  overflow:hidden;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  transition:background-image 1.5s ease-in-out;
+}
+</style>
+
+</head>
+<body class="preload">
+
+  <header>
+    <div class="logo">
+      <!-- Replace logo.png with your actual logo image -->
+      <img src="./images/logo.png" alt="Flash Line Cargo Service Logo" />
+      <h1>Flash Line Cargo <br>Service</h1>
+    </div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="tracking.html">Tracking</a>
+	  <a href="pickup.html">Pickup Request</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About Us</a>
+      <a href="branches.html">Contact Us</a>
+    </nav>
+  </header>
+
+  <section class="hero page-hero">
+    <div class="cargo-icons">
+      <div class="cargo-icon plane">✈️</div>
+      <div class="cargo-icon ship">🚢</div>
+      <div class="cargo-icon truck">🚚</div>
+    </div>
+	
+    <h2 class="fade-up fade-delay-1">Fast. Reliable. Global Cargo Solutions</h2>
+    <p class="fade-up fade-delay-2">Flash Line Cargo Service delivers world-class logistics solutions by air, sea, and land.
+      We move your cargo safely, quickly, and efficiently across the globe.
+    </p>
+    
+  </section>
+  
+<div class="marquee">
+  <span>
+    📢 WE SERVING SRI LANKA - PHILIPPINES - INDONESIA - ETHIOPIA - INDIA - NEPAL - EUROPE & More
+  </span>
+</div>
+
+<div class="marquee2">
+  <span>
+    +965 2475 8850 &nbsp; | &nbsp; +965 9163 7705 &nbsp; | &nbsp; +94 77 340 2079 &nbsp; | &nbsp; +94 37 209 6555
+  </span>
+</div>
+
+  <section class="services" id="services">
+    <h3>Our Services</h3>
+       <div class="service-grid">
+      <div class="service-box">
+        <h4>Air Freight</h4>
+        <p>Fast, secure, and reliable air freight solutions for time-critical shipments—delivered worldwide with precision and care.</p>
+      </div>
+      <div class="service-box">
+        <h4>Sea Freight</h4>
+        <p>Comprehensive sea freight solutions offering flexible, economical shipping for worldwide cargo movement.</p>
+      </div>
+      <div class="service-box">
+        <h4>DHL</h4>
+        <p>Worldwide express delivery powered by DHL’s trusted global network.</p>
+      </div>
+      <div class="service-box">
+        <h4>Logistics Solutions</h4>
+        <p>Customized supply chain and logistics management for your business.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <h3>Why Choose Flash Line Cargo Service?</h3>
+    <p>
+      With a strong global network, experienced professionals, and advanced logistics systems,
+      Flash Line Cargo Service is your trusted partner for all cargo and freight needs.
+      We focus on speed, safety, and customer satisfaction.
+    </p>
+  </section>
+
+  <footer id="contact">
+    <p>© 2026 Flash Line Cargo Service. All Rights Reserved.</p>
+    <p>Email: <a href="mailto:flashlinecargo@yahoo.com" style="color:#ffcc00;text-decoration:none;">flashlinecargo@yahoo.com</a> | Phone: <a href="tel:+96524758850" style="color:#ffcc00;text-decoration:none;">+965 2475 8850</a></p>
+  </footer>
+
+<script>
+    window.addEventListener('load', () => {
+      document.body.classList.remove('preload');
+    });
+  </script>
+  <div class="floating-contact">
+    <a href="mailto:flashlinecargo@yahoo.com" class="floating-btn email" title="Send Email">✉️</a>
+    <a href="https://wa.me/+96551637705" class="floating-btn whatsapp" title="Chat on WhatsApp">💬</a>
+    <a href="tel:+96524758850" class="floating-btn call" title="Call Us">📞</a>
+  </div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  const hero=document.querySelector(".page-hero");
+  if(!hero)return;
+  const backgrounds=[
+    "images/background/bg1.jpg",
+    "images/background/bg2.jpg",
+    "images/background/bg3.jpg",
+    "images/background/bg4.jpg",
+    "images/background/bg5.jpg"
+  ];
+  let i=0;
+  function rotate(){
+    hero.style.backgroundImage=
+      "linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.85)),url('"+backgrounds[i]+"')";
+    i=(i+1)%backgrounds.length;
+  }
+  rotate();
+  setInterval(rotate,6000);
+});
+</script>
+
+<!-- POPUP IFRAME -->
+<div id="popupOverlay" class="popup-overlay">
+  <div class="popup-frame">
+    <span class="popup-close" onclick="closePopup()">×</span>
+
+    <iframe src="popup.html" frameborder="0"></iframe>
+  </div>
+</div>
+
+<style>
+ .popup-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+}
+
+.popup-frame{
+  width:90%;
+  max-width:700px;
+  height:80vh;
+  background:#fff;
+  border-radius:16px;
+  position:relative;
+  overflow:hidden;
+  animation:popupIn .5s ease;
+}
+
+.popup-frame iframe{
+  width:100%;
+  height:100%;
+  border:none;
+}
+
+.popup-close{
+  position:absolute;
+  top:10px;
+  right:14px;
+  font-size:28px;
+  cursor:pointer;
+  z-index:10;
+}
+
+@keyframes popupIn{
+  from{transform:scale(.85);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+
+
+
+
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient-primary);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+
+
+
+
+/* ===============================
+   MOBILE RESPONSIVE FIX
+   =============================== */
+@media (max-width: 900px){
+
+/* ---------- HEADER ---------- */
+header{
+  flex-direction: column;
+  padding: 15px 20px;
+  text-align: center;
+}
+
+header .logo{
+  flex-direction: column;
+}
+
+header .logo img{
+  width: 70px;
+  height: 70px;
+}
+
+header h1{
+  font-size: 22px !important;
+  line-height: 1.2;
+}
+
+/* NAV */
+nav{
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+nav a{
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 14px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 30px;
+}
+
+/* ---------- HERO TEXT ---------- */
+.hero h2,
+.page-hero h2,
+.pickup-hero h2,
+.tracking-hero h2{
+  font-size: 32px !important;
+}
+
+.hero p,
+.page-hero p,
+.pickup-hero p{
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+/* ---------- SERVICES ---------- */
+.services{
+  padding: 60px 20px;
+}
+
+.service-grid{
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+/* ---------- ABOUT SPLIT ---------- */
+.about-split{
+  grid-template-columns: 1fr;
+  margin: 60px auto;
+}
+
+.about-photos{
+  grid-template-columns: 1fr 1fr;
+}
+
+.about-photos img{
+  height: 180px;
+}
+
+/* ---------- GALLERY ---------- */
+.section{
+  padding: 60px 20px;
+}
+
+.gallery-grid{
+  grid-template-columns: 1fr;
+}
+
+/* ---------- FORMS ---------- */
+.form-box{
+  padding: 25px;
+}
+
+input,select,textarea{
+  font-size: 16px;
+}
+
+/* ---------- FLOATING BUTTONS ---------- */
+.floating-contact{
+  right: 12px;
+  bottom: 12px;
+}
+
+.floating-btn{
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+}
+
+/* ---------- MAP ---------- */
+.master-map{
+  height: 300px;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding: 25px 15px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+}
+
+</style>
+
+<!-- Popup Timer -->
+<script>
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    document.getElementById("popupOverlay").style.display="flex";
+  },3000); // show after 3 seconds
+});
+
+function closePopup(){
+  document.getElementById("popupOverlay").style.display="none";
+}
+</script>
+
+<!-- Popup Timer -->
+<script>
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    document.getElementById("popupOverlay").style.display="flex";
+  },2000); // show after 2 seconds
+});
+
+function closePopup(){
+  document.getElementById("popupOverlay").style.display="none";
+}
+</script>
+
+
+</body>
+</html>

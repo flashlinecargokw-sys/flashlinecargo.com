@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Flash Line Cargo Promotions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;}
+body{
+    margin:0;
+    background:#000;
+    overflow:hidden;
+}
+
+.slider{
+    position:fixed;
+    width:100vw;
+    height:100vh;
+}
+
+.slides{
+    display:flex;
+    height:100%;
+    transition:transform .6s ease;
+}
+
+.slide{
+    width:100vw;
+    height:100vh;
+    flex-shrink:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#9e9d9d;
+}
+
+.slide img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    cursor:pointer;
+}
+
+.dots{
+    position:absolute;
+    bottom:15px;
+    width:100%;
+    text-align:center;
+}
+.dots span{
+    width:12px;
+    height:12px;
+    background:#555;
+    display:inline-block;
+    border-radius:50%;
+    margin:4px;
+}
+.dots .active{background:#ffcc00;}
+
+.contact{
+    position:absolute;
+    bottom:60px;
+    width:100%;
+    text-align:center;
+    z-index:10;
+}
+.btn{
+    background:#00c853;
+    color:rgb(0, 0, 0);
+    padding:12px 18px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:bold;
+    margin:5px;
+}
+.whatsapp{background:#25D366;}
+.call{background:#2196F3;}
+
+/* LIGHTBOX */
+.lightbox{
+    position:fixed;
+    inset:0;
+    background:#e0dddd;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:99999;
+}
+.lightbox img{
+    max-width:95%;
+    max-height:95%;
+    border-radius:10px;
+}
+.lightbox-close{
+    position:absolute;
+    top:20px;
+    right:30px;
+    font-size:40px;
+    color:#ffcc00;
+    cursor:pointer;
+}
+
+/* ===============================
+   MOBILE RESPONSIVE FIX
+   =============================== */
+@media (max-width: 900px){
+
+/* ---------- HEADER ---------- */
+header{
+  flex-direction: column;
+  padding: 15px 20px;
+  text-align: center;
+}
+
+header .logo{
+  flex-direction: column;
+}
+
+header .logo img{
+  width: 70px;
+  height: 70px;
+}
+
+header h1{
+  font-size: 22px !important;
+  line-height: 1.2;
+}
+
+/* NAV */
+nav{
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+nav a{
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 14px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 30px;
+}
+
+/* ---------- HERO TEXT ---------- */
+.hero h2,
+.page-hero h2,
+.pickup-hero h2,
+.tracking-hero h2{
+  font-size: 32px !important;
+}
+
+.hero p,
+.page-hero p,
+.pickup-hero p{
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+/* ---------- SERVICES ---------- */
+.services{
+  padding: 60px 20px;
+}
+
+.service-grid{
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+/* ---------- ABOUT SPLIT ---------- */
+.about-split{
+  grid-template-columns: 1fr;
+  margin: 60px auto;
+}
+
+.about-photos{
+  grid-template-columns: 1fr 1fr;
+}
+
+.about-photos img{
+  height: 180px;
+}
+
+/* ---------- GALLERY ---------- */
+.section{
+  padding: 60px 20px;
+}
+
+.gallery-grid{
+  grid-template-columns: 1fr;
+}
+
+/* ---------- FORMS ---------- */
+.form-box{
+  padding: 25px;
+}
+
+input,select,textarea{
+  font-size: 16px;
+}
+
+/* ---------- FLOATING BUTTONS ---------- */
+.floating-contact{
+  right: 12px;
+  bottom: 12px;
+}
+
+.floating-btn{
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+}
+
+/* ---------- MAP ---------- */
+.master-map{
+  height: 300px;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding: 25px 15px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="slider">
+    <div class="slides" id="slides"></div>
+
+    <div class="contact">
+        <a href="tel:97570277" class="btn call">📞 Call</a>
+        <a href="https://wa.me/96551637705" class="btn whatsapp">💬 WhatsApp</a>
+    </div>
+
+    <div class="dots" id="dots"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <span class="lightbox-close" onclick="closeLightbox()">×</span>
+    <img id="lightbox-img">
+</div>
+
+<script>
+let index = 0;
+let total = 0;
+const slides = document.getElementById("slides");
+const dots = document.getElementById("dots");
+
+/* LOAD FROM gallery.json */
+fetch('gallery.json')
+.then(res => res.json())
+.then(data => {
+
+    slides.innerHTML = "";
+    dots.innerHTML = "";
+
+    data.popup.forEach((item, i) => {
+
+        slides.innerHTML += `
+            <div class="slide">
+                <img src="${item.src}" onclick="openLightbox('${item.src}')">
+            </div>
+        `;
+
+        const dot = document.createElement("span");
+        if(i === 0) dot.classList.add("active");
+        dots.appendChild(dot);
+    });
+
+    total = data.popup.length;
+    update();
+});
+
+/* SLIDER */
+function update(){
+    slides.style.transform = "translateX(-"+(index*100)+"vw)";
+    document.querySelectorAll(".dots span").forEach((d,i)=>{
+        d.classList.toggle("active", i===index);
+    });
+}
+
+setInterval(()=>{
+    if(total > 0){
+        index = (index + 1) % total;
+        update();
+    }
+}, 3500);
+
+/* LIGHTBOX */
+function openLightbox(src){
+    document.getElementById("lightbox").style.display="flex";
+    document.getElementById("lightbox-img").src = src;
+}
+
+function closeLightbox(){
+    document.getElementById("lightbox").style.display="none";
+}
+</script>
+
+</body>
+</html>

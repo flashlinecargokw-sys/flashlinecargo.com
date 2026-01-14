@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About Us | Flash Line Cargo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+
+<style>
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@900&display=swap');
+  
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+   body {
+      background: radial-gradient(circle at top, #1a3b5d, #0b1620 70%);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    body.preload * {
+      animation: none !important;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .fade-delay-1 { animation-delay: 0.3s; }
+    .fade-delay-2 { animation-delay: 0.6s; }
+    .fade-delay-3 { animation-delay: 0.9s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HEADER */
+    header {
+      background: rgba(15, 32, 39, 0.6);
+      backdrop-filter: blur(14px);
+      padding: 20px 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      animation: slideDown 1s ease forwards;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+	
+    header .logo {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    header .logo img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(255,204,0,0.8);
+      animation: logoFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+        header h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 35px !important;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #ffcc00, #ff9900);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+   nav a {
+      color: #eaeaea;
+      text-decoration: none;
+      margin-left: 30px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ffcc00, #ff9900);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after { width: 100%; }
+	
+
+    /* TRACKING HERO WITH BACKGROUND IMAGE */
+  .tracking-hero {
+   padding: 120px 40px 85px;
+   text-align: center;
+   position: relative;
+   overflow: hidden;
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   transition: background-image 1.5s ease-in-out;
+}
+
+    .tracking-hero h2 {
+      font-size: 50px;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #ffcc00, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+ 
+    footer {
+      background: #0b1620;
+      padding: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+/* SPLIT SECTION */
+.about-split{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+  max-width:1200px;
+  margin:100px auto;
+  padding:0 40px;
+}
+
+.about-text{
+  background:linear-gradient(145deg,#0f2027,#203a43);
+  padding:40px;
+  border-radius:24px;
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+
+.about-text h3{
+  font-size:34px;
+  margin-bottom:20px;
+  background:linear-gradient(90deg,#ffcc00,#ffffff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.about-text p{
+  font-size:18px;
+  line-height:1.8;
+  color:#ddd;
+}
+
+.about-photos{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.about-photos img{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+  border-radius:18px;
+  cursor:pointer;
+  transition:.4s;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+.about-photos img:hover{transform:scale(1.05);}
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+}
+.lightbox img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:12px;
+  box-shadow:0 0 40px rgba(255,204,0,.4);
+  animation:zoomIn .4s;
+}
+.lightbox-close{
+  position:absolute;
+  top:30px;
+  right:40px;
+  font-size:42px;
+  color:#ffcc00;
+  cursor:pointer;
+}
+@keyframes zoomIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+
+footer{background:#0b1620;padding:40px;text-align:center;color:#aaa;border-top:1px solid rgba(255,255,255,.08)}
+</style>
+
+<style>
+.page-hero{
+  position:relative;
+  overflow:hidden;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  transition:background-image 1.5s ease-in-out;
+}
+
+/* ===============================
+   MOBILE RESPONSIVE FIX
+   =============================== */
+@media (max-width: 900px){
+
+/* ---------- HEADER ---------- */
+header{
+  flex-direction: column;
+  padding: 15px 20px;
+  text-align: center;
+}
+
+header .logo{
+  flex-direction: column;
+}
+
+header .logo img{
+  width: 70px;
+  height: 70px;
+}
+
+header h1{
+  font-size: 22px !important;
+  line-height: 1.2;
+}
+
+/* NAV */
+nav{
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+nav a{
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 14px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 30px;
+}
+
+/* ---------- HERO TEXT ---------- */
+.hero h2,
+.page-hero h2,
+.pickup-hero h2,
+.tracking-hero h2{
+  font-size: 32px !important;
+}
+
+.hero p,
+.page-hero p,
+.pickup-hero p{
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+/* ---------- SERVICES ---------- */
+.services{
+  padding: 60px 20px;
+}
+
+.service-grid{
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+/* ---------- ABOUT SPLIT ---------- */
+.about-split{
+  grid-template-columns: 1fr;
+  margin: 60px auto;
+}
+
+.about-photos{
+  grid-template-columns: 1fr 1fr;
+}
+
+.about-photos img{
+  height: 180px;
+}
+
+/* ---------- GALLERY ---------- */
+.section{
+  padding: 60px 20px;
+}
+
+.gallery-grid{
+  grid-template-columns: 1fr;
+}
+
+/* ---------- FORMS ---------- */
+.form-box{
+  padding: 25px;
+}
+
+input,select,textarea{
+  font-size: 16px;
+}
+
+/* ---------- FLOATING BUTTONS ---------- */
+.floating-contact{
+  right: 12px;
+  bottom: 12px;
+}
+
+.floating-btn{
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+}
+
+/* ---------- MAP ---------- */
+.master-map{
+  height: 300px;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding: 25px 15px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+}
+
+
+
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <img src="images/logo.png">
+    <h1>Flash Line Cargo <br>Service</h1>
+  </div>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="tracking.html">Tracking</a>
+    <a href="pickup.html">Pickup</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About Us</a>
+    <a href="branches.html">Contact Us</a>
+  </nav>
+</header>
+
+<section class="tracking-hero page-hero">
+  <h2 class="fade-up fade-delay-1">About Flash Line Cargo</h2>
+  <p class="fade-up fade-delay-2">Your trusted cargo and logistics partner in Kuwait, delivering shipments safely and on time across the world. </p>
+</section>
+
+<!--1-->
+<section class="about-split">
+  <div class="about-text">
+    <h3 align="center">Our Work in Action</h3>
+    <p>
+      At <strong>Flash Line Cargo</strong>, we handle every shipment with care and professionalism.
+      From packing and loading to delivery and customs clearance, our team ensures your cargo
+      is safe, secure, and delivered on time.
+      <br><br>
+      Our customers trust us to move their goods across the world from Kuwait with speed and reliability.
+    </p>
+  </div>
+ 
+  <div class="about-photos">
+    <img src="images/about/about_1.jpg" onclick="openLightbox(this.src)">
+    <img src="images/about/about_2.jpg" onclick="openLightbox(this.src)">
+    <img src="images/about/about_3.jpg" onclick="openLightbox(this.src)">
+    <img src="images/about/about_4.jpg" onclick="openLightbox(this.src)">
+  </div>
+</section>
+
+<!--2-->
+<section class="about-split">
+  <div class="about-photos">
+    <img src="images/about/about_1.jpg" onclick="openLightbox(this.src)">
+    <img src="images/about/about_2.jpg" onclick="openLightbox(this.src)">
+    <img src="images/about/about_3.jpg" onclick="openLightbox(this.src)">
+    <img src="images/about/about_4.jpg" onclick="openLightbox(this.src)">
+  </div>
+  
+   <div class="about-text">
+    <h3 align="center">Our Work in Action</h3>
+    <p>
+      At <strong>Flash Line Cargo</strong>, we handle every shipment with care and professionalism.
+      From packing and loading to delivery and customs clearance, our team ensures your cargo
+      is safe, secure, and delivered on time.
+      <br><br>
+      Our customers trust us to move their goods across the world from Kuwait with speed and reliability.
+    </p>
+  </div>
+</section> 
+
+
+<!-- Footer Note -->
+<footer>
+  <p>© 2026 Flash Line Cargo Service. All Rights Reserved.</p>
+  <p>
+    Email:
+    <a href="mailto:flashlinecargo@yahoo.com" style="color:#ffcc00;text-decoration:none;">
+      flashlinecargo@yahoo.com
+    </a>
+    |
+    Phone:
+    <a href="tel:+96524758850" style="color:#ffcc00;text-decoration:none;">
+      +965 2475 8850
+    </a>
+  </p>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" onclick="closeLightbox()">×</span>
+  <img id="lightbox-img">
+</div>
+
+<script>
+function openLightbox(src){
+  document.getElementById("lightbox").style.display="flex";
+  document.getElementById("lightbox-img").src=src;
+}
+function closeLightbox(){
+  document.getElementById("lightbox").style.display="none";
+}
+</script>
+
+<!-- Changeble Background Code -->
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  const hero=document.querySelector(".page-hero");
+  if(!hero)return;
+  const backgrounds=[
+    "images/background/bg1.jpg",
+    "images/background/bg2.jpg",
+    "images/background/bg3.jpg",
+    "images/background/bg4.jpg",
+    "images/background/bg5.jpg"
+  ];
+  let i=0;
+  function rotate(){
+    hero.style.backgroundImage=
+      "linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.85)),url('"+backgrounds[i]+"')";
+    i=(i+1)%backgrounds.length;
+  }
+  rotate();
+  setInterval(rotate,6000);
+});
+</script>
+
+</body>
+</html>

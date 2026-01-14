@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Flash Line Cargo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f0f0f7;
+  overflow:hidden;
+  font-family:'Poppins',sans-serif;
+}
+
+/* Splash content */
+.splash{
+  text-align:center;
+  animation:fadeIn 1.4s ease forwards;
+}
+
+/* ===== 3D LOGO ===== */
+.logo-3d{
+  perspective:900px;
+  display:inline-block;
+}
+
+.logo-3d img{
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  background: linear-gradient(90deg, #7c7c7b, #868686);
+  box-shadow:0 15px 40px rgba(0,0,0,.18);
+  transform-style:preserve-3d;
+  animation:logo3d 6s ease-in-out infinite;
+}
+
+/* Text */
+.splash h1{
+  margin-top:28px;
+  font-family:'Montserrat',sans-serif;
+  font-size:36px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  background: linear-gradient(90deg, #ffcc00, #ff9900);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.splash p{
+  margin-top:10px;
+  font-size:16px;
+  letter-spacing:1px;
+  color:#555;
+}
+
+/* Loading line */
+.loader{
+  width:240px;
+  height:4px;
+  background:#e0e6ed;
+  border-radius:4px;
+  margin:28px auto 0;
+  overflow:hidden;
+}
+
+.loader span{
+  display:block;
+  height:100%;
+  width:40%;
+  background:linear-gradient(90deg,#1a3b5d,#4facfe);
+  animation:loading 1.4s infinite;
+  border-radius:4px;
+}
+
+/* Animations */
+@keyframes logo3d{
+  0%{transform:rotateX(0deg) rotateY(0deg);}
+  25%{transform:rotateX(12deg) rotateY(-18deg);}
+  50%{transform:rotateX(-12deg) rotateY(18deg);}
+  75%{transform:rotateX(8deg) rotateY(-10deg);}
+  100%{transform:rotateX(0deg) rotateY(0deg);}
+}
+
+@keyframes loading{
+  0%{transform:translateX(-100%);}
+  100%{transform:translateX(250%);}
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(18px) scale(.96);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+
+/* Fade out */
+.fade-out{
+  opacity:0;
+  transform:scale(.96);
+  transition:opacity 1s ease, transform 1s ease;
+}
+
+
+/* ===============================
+   MOBILE RESPONSIVE FIX
+   =============================== */
+@media (max-width: 900px){
+
+/* ---------- HEADER ---------- */
+header{
+  flex-direction: column;
+  padding: 15px 20px;
+  text-align: center;
+}
+
+header .logo{
+  flex-direction: column;
+}
+
+header .logo img{
+  width: 70px;
+  height: 70px;
+}
+
+header h1{
+  font-size: 22px !important;
+  line-height: 1.2;
+}
+
+/* NAV */
+nav{
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+nav a{
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 14px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 30px;
+}
+
+/* ---------- HERO TEXT ---------- */
+.hero h2,
+.page-hero h2,
+.pickup-hero h2,
+.tracking-hero h2{
+  font-size: 32px !important;
+}
+
+.hero p,
+.page-hero p,
+.pickup-hero p{
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+/* ---------- SERVICES ---------- */
+.services{
+  padding: 60px 20px;
+}
+
+.service-grid{
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+/* ---------- ABOUT SPLIT ---------- */
+.about-split{
+  grid-template-columns: 1fr;
+  margin: 60px auto;
+}
+
+.about-photos{
+  grid-template-columns: 1fr 1fr;
+}
+
+.about-photos img{
+  height: 180px;
+}
+
+/* ---------- GALLERY ---------- */
+.section{
+  padding: 60px 20px;
+}
+
+.gallery-grid{
+  grid-template-columns: 1fr;
+}
+
+/* ---------- FORMS ---------- */
+.form-box{
+  padding: 25px;
+}
+
+input,select,textarea{
+  font-size: 16px;
+}
+
+/* ---------- FLOATING BUTTONS ---------- */
+.floating-contact{
+  right: 12px;
+  bottom: 12px;
+}
+
+.floating-btn{
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+}
+
+/* ---------- MAP ---------- */
+.master-map{
+  height: 300px;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding: 25px 15px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+}
+
+
+</style>
+</head>
+
+<body onclick="speakWelcome()">
+
+<!-- Splash -->
+<div class="splash" id="splash">
+  <div class="logo-3d">
+    <img src="images/logo.png" alt="Flash Line Cargo Logo">
+  </div>
+
+  <h1>Flash Line Cargo</h1>
+  <p>Global Air • Sea • Land Logistics</p>
+
+  <!-- Loading line -->
+  <div class="loader">
+    <span></span>
+  </div>
+</div>
+
+<script>
+/* ===== WELCOME VOICE (OPTION 1) ===== */
+function speakWelcome(){
+  const msg = new SpeechSynthesisUtterance("Welcome to Flash Line Cargo");
+  msg.lang = "en-US";
+  msg.rate = 0.9;
+  msg.pitch = 1.0;
+  msg.volume = 1.0;
+
+  const voices = speechSynthesis.getVoices();
+  msg.voice = voices.find(v => v.lang.includes("en")) || voices[0];
+
+  speechSynthesis.cancel();
+  speechSynthesis.speak(msg);
+}
+
+/* Play voice after short delay (desktop) */
+setTimeout(speakWelcome, 600);
+
+/* Fade out splash */
+setTimeout(()=>{
+  document.getElementById("splash").classList.add("fade-out");
+},2800);
+
+/* Redirect */
+setTimeout(()=>{
+  window.location.href="home.html";
+},3800);
+</script>
+
+</body>
+</html>

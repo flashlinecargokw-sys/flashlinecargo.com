@@ -1,0 +1,24 @@
+{
+    "photos": [
+        {
+            "title": "2",
+            "src": "content\/photos\/1768289408_logo-removebg-preview.png"
+        }
+    ],
+    "videos": [
+        {
+            "title": "02",
+            "src": "content\/videos\/1768289415_001.mp4"
+        }
+    ],
+    "popup": [
+        {
+            "title": "01",
+            "src": "content\/popup\/1768289814_IMG-20240221-WA0003-removebg-preview.png"
+        },
+        {
+            "title": "ada",
+            "src": "content\/popup\/1768289904_popup_1.jpg"
+        }
+    ]
+}

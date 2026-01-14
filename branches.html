@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Branches | Flash Line Cargo Service</title>
+
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@900&display=swap');
+ * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: radial-gradient(circle at top, #1a3b5d, #0b1620 70%);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    body.preload * {
+      animation: none !important;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .fade-delay-1 { animation-delay: 0.3s; }
+    .fade-delay-2 { animation-delay: 0.6s; }
+    .fade-delay-3 { animation-delay: 0.9s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      background: rgba(15, 32, 39, 0.6);
+      backdrop-filter: blur(14px);
+      padding: 20px 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      animation: slideDown 1s ease forwards;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    header .logo img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(255,204,0,0.8);
+      animation: logoFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+    header h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 35px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #ffcc00, #ff9900);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav a {
+      color: #eaeaea;
+      text-decoration: none;
+      margin-left: 30px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ffcc00, #ff9900);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after { width: 100%; }
+
+    .hero {
+      padding: 120px 40px 160px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: 
+		linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)), 
+		url("images/branches-bg.jpg") center/cover no-repeat;
+    }
+
+    .hero h2 {
+      font-size: 56px;
+      margin-bottom: 25px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #ffcc00, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 22px;
+      max-width: 900px;
+      margin: auto;
+      line-height: 1.7;
+      color: #ddd;
+    }
+
+    .hero button {
+      margin-top: 40px;
+      padding: 16px 42px;
+      font-size: 18px;
+      border: none;
+      background: linear-gradient(135deg, #ffcc00, #ff9900);
+      color: #000;
+      cursor: pointer;
+      border-radius: 40px;
+      font-weight: 600;
+      box-shadow: 0 15px 35px rgba(255,153,0,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .hero button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 25px 50px rgba(255,153,0,0.6);
+    }
+    nav a:hover { color: #ffcc00; }
+
+    .hero p {
+      font-size: 20px;
+      color: #ddd;
+    }
+    	
+	footer {
+      margin-top: 0px;
+      padding: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    /* BRANCH CARDS */
+    .branches {
+      padding: 100px 50px;
+      background: #ffffff;
+      color: #222;
+    }
+
+    .branches h3 {
+      text-align: center;
+      font-size: 42px;
+      margin-bottom: 60px;
+      color: #0f2027;
+    }
+
+    .branch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+    }
+
+    .branch-box {
+      background: linear-gradient(145deg, #ffffff, #f1f1f1);
+      padding: 35px 30px;
+      border-radius: 28px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+
+    .branch-box:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 35px 70px rgba(0,0,0,0.18);
+    }
+
+    .branch-box h4 { font-size: 24px; color: #ff9900; }
+
+    .branch-box p { color: #444; line-height: 1.7; }
+
+    .branch-map {
+      width: 100%;
+      height: 220px;
+      margin-top: 20px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .branch-map iframe { width: 100%; height: 100%; border: none; }
+
+    /* MASTER MAP */
+    .master-map-section {
+      padding: 100px 50px;
+      background: linear-gradient(135deg, #0f2027, #203a43);
+    }
+
+    .master-map-section h3 {
+      text-align: center;
+      font-size: 42px;
+      margin-bottom: 40px;
+      background: linear-gradient(90deg, #ffcc00, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .master-map {
+      max-width: 1200px;
+      height: 500px;
+      margin: auto;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+
+    .master-map iframe { width: 100%; height: 100%; border: none; }
+
+    footer {
+      background: #0b1620;
+      padding: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    @media (max-width: 768px) {
+      .master-map { height: 360px; }
+    }
+	
+		 .floating-contact {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 999;
+    }
+
+    .floating-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+      animation: pulse 2.5s infinite;
+      transition: transform 0.3s;
+    }
+
+    .floating-btn:hover { transform: scale(1.1); }
+	  .facebook { background: linear-gradient(135deg, #2f00ff, #0384ee); }
+	  .tiktok { background: linear-gradient(135deg, #000000, #404240); }
+    .whatsapp { background: linear-gradient(135deg, #1af36a, #33ff00); }
+    .call { background: linear-gradient(135deg, #ffcc00, #ff9900); color: #000; }
+    .email { background: linear-gradient(135deg, #4facfe, #00f2fe); color: #000; }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+      70% { box-shadow: 0 0 0 18px rgba(255,255,255,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+    }
+	
+	.marquee {
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(90deg, #ffcc00, #ff9900);
+  color: #000;
+  padding: 12px 0;
+  white-space: nowrap;
+}
+
+.marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 15s linear infinite;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.marquee2 {
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(90deg, #ff9900, #ffcc00);
+  color: #000;
+  padding: 12px 0;
+  white-space: nowrap;
+}
+
+.marquee2 span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 15s linear infinite;
+  font-weight: 800;
+  font-size: 30px;
+  font-family: Montserrat;
+}
+
+@keyframes marquee2 {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+		
+  </style>
+
+<style>
+.page-hero{
+  position:relative;
+  overflow:hidden;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  transition:background-image 1.5s ease-in-out;
+}
+
+/* ===============================
+   MOBILE RESPONSIVE FIX
+   =============================== */
+@media (max-width: 900px){
+
+/* ---------- HEADER ---------- */
+header{
+  flex-direction: column;
+  padding: 15px 20px;
+  text-align: center;
+}
+
+header .logo{
+  flex-direction: column;
+}
+
+header .logo img{
+  width: 70px;
+  height: 70px;
+}
+
+header h1{
+  font-size: 22px !important;
+  line-height: 1.2;
+}
+
+/* NAV */
+nav{
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+nav a{
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 14px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 30px;
+}
+
+/* ---------- HERO TEXT ---------- */
+.hero h2,
+.page-hero h2,
+.pickup-hero h2,
+.tracking-hero h2{
+  font-size: 32px !important;
+}
+
+.hero p,
+.page-hero p,
+.pickup-hero p{
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+/* ---------- SERVICES ---------- */
+.services{
+  padding: 60px 20px;
+}
+
+.service-grid{
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+/* ---------- ABOUT SPLIT ---------- */
+.about-split{
+  grid-template-columns: 1fr;
+  margin: 60px auto;
+}
+
+.about-photos{
+  grid-template-columns: 1fr 1fr;
+}
+
+.about-photos img{
+  height: 180px;
+}
+
+/* ---------- GALLERY ---------- */
+.section{
+  padding: 60px 20px;
+}
+
+.gallery-grid{
+  grid-template-columns: 1fr;
+}
+
+/* ---------- FORMS ---------- */
+.form-box{
+  padding: 25px;
+}
+
+input,select,textarea{
+  font-size: 16px;
+}
+
+/* ---------- FLOATING BUTTONS ---------- */
+.floating-contact{
+  right: 12px;
+  bottom: 12px;
+}
+
+.floating-btn{
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+}
+
+/* ---------- MAP ---------- */
+.master-map{
+  height: 300px;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding: 25px 15px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <img src="./images/logo.png">
+    <h1>Flash Line Cargo <br>Service </h1>
+	<nav>
+      <a href="home.html">Home</a>
+      <a href="tracking.html">Tracking</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About Us</a>
+      <a href="branches.html">Contact Us</a>
+    </nav>
+  </div>
+</header>
+
+
+<section class="hero page-hero">
+  <h2 class="fade-up fade-delay-1">Our Global Branches</h2>
+  <p class="fade-up fade-delay-2">Strategically located to serve you faster and better worldwide </p>
+</section>
+
+<div class="marquee">
+  <span>
+    📢 WE SERVING SRI LANKA - PHILIPPINES - INDONESIA - ETHIOPIA - INDIA - NEPAL - EUROPE & More
+  </span>
+</div>
+
+<div class="marquee2">
+  <span>
+    SRI LANKA HOT LINE +94 77 340 2079
+  </span>
+</div>
+
+<section class="branches">
+  <h3>Branch Locations</h3>
+  <div class="branch-grid">
+
+   <!-- <div class="branch-box"> -->
+      <!-- KUWAIT -->
+  <div class="branch-box">
+    <h4>Kuwait (Head Office)</h4>
+    <p>
+      📍 BLOCK 3, AL MUNAWAR ST, FARWANIYA, KUWAIT <br>
+      📞 +965 2475 8850<br>
+      ✉️ <a href="mailto:flashlinecargo@yahoo.com" style="color:#000080;text-decoration:underline;font-style: italic">flashlinecargo@yahoo.com</a>
+    </p>
+
+    <div class="branch-map">
+      <iframe 
+	    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3480.162023401052!2d47.9626618!3d29.277571399999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf9b00638a6921%3A0xad0e3acb80813f9a!2sFlash%20Line%20Cargo!5e0!3m2!1sen!2skw!4v1768142296259!5m2!1sen!2skw"
+		loading="lazy">
+	 </iframe> 
+    </div>
+  </div>
+
+  <!-- Wattala -->
+  <div class="branch-box">
+    <h4>Sri Lanka (Wattala)</h4>
+    <p>
+      📍 176 ALWIS TOWN, WATTALA 11300,<br>SRI LANKA<br>
+      📞 +94 77 113 9341<br>
+      ✉️ <a href="mailto:flashlinecargo@yahoo.com" style="color:#000080;text-decoration:underline;font-style: italic">flashlinecargo@yahoo.com</a>
+    </p>
+
+    <div class="branch-map">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.1859551197103!2d79.88460227551582!3d6.987364317598084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2f7d900a1fd59%3A0x98948fbcca8b023b!2sTRANSCO%20International%20Cargo%20Services!5e0!3m2!1sen!2skw!4v1767523422093!5m2!1sen!2skw"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- Kurunegala -->
+  <div class="branch-box">
+    <h4>Sri Lanka (Kurunegala)</h4>
+    <p>
+      📍 KANDY RD, NAPE, PILESSA, KURUNEGALA, SRI LANKA<br>
+      📞 +94 37 209 6555<br>
+      ✉️ <a href="mailto:flashlinecargo@yahoo.com" style="color:#000080;text-decoration:underline;font-style: italic">flashlinecargo@yahoo.com</a>
+    </p>
+
+    <div class="branch-map">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.148096560813!2d80.42297527551774!3d7.448862611717706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae339e147b206d9%3A0xddd5529935b8f851!2sFlash%20Line%20International%20Cargo%20(pvt)%20Ltd%20-%20Kurunagala!5e0!3m2!1sen!2skw!4v1767523109102!5m2!1sen!2skw"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- Galewela -->
+  <div class="branch-box">
+    <h4>Sri Lanka (Galewela)</h4>
+    <p>
+      📍  KAJUWATTA, KUBUKGOLLA, DEWAHUWA, SRI LANKA <br>
+      📞 +94 76 446 0470<br>
+      ✉️ <a href="mailto:flashlinecargo@yahoo.com" style="color:#000080;text-decoration:underline;font-style: italic">flashlinecargo@yahoo.com</a>
+    </p>
+
+    <div class="branch-map">
+      <iframe 
+        src="https://www.google.com/maps?q=Guangzhou%20China&output=embed"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+	 
+	 <!-- Dambulla -->
+  <div class="branch-box">
+    <h4>Sri Lanka (Dambulla)</h4>
+    <p>
+      📍 ETHABEDIWEWA RD, PANNAMPITIYA, LENADORA, DAMBULLA, SRI LANKA <br>
+      📞 +94 76 776 5341<br>
+      ✉️ <a href="mailto:flashlinecargo@yahoo.com" style="color:#000080;text-decoration:underline;font-style: italic">flashlinecargo@yahoo.com</a>
+    </p>
+
+    <div class="branch-map">
+      <iframe 
+        src="https://www.google.com/maps?q=Guangzhou%20China&output=embed"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+  
+   <!-- Wellampitiya -->
+  <div class="branch-box">
+    <h4>Sri Lanka (Wellampitiya)</h4>
+    <p>
+      📍 81/12, BANDIYAWATTA, WELLAMPITIYA, COLOMBO, SRI LANKA<br>
+      📞 +94 71 116 6668<br>
+      ✉️ <a href="mailto:flashlinecargo@yahoo.com" style="color:#000080;text-decoration:underline;font-style: italic">flashlinecargo@yahoo.com</a>
+    </p>
+
+    <div class="branch-map">
+      <iframe 
+        src="https://www.google.com/maps?q=Guangzhou%20China&output=embed"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+  
+  <!-- Kandy -->
+  <div class="branch-box">
+    <h4>Sri Lanka (Kandy)</h4>
+    <p>
+      📍 47B,  KANDY RD, GURUDENIYA, KANDY, SRI LANKA<br>
+      📞 +94 77 673 7111<br>
+      ✉️ <a href="mailto:flashlinecargo@yahoo.com" style="color:#000080;text-decoration:underline;font-style: italic">flashlinecargo@yahoo.com</a>
+    </p>
+
+    <div class="branch-map">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.7442202812304!2d80.68303547551697!3d7.269920814038523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae3676f01808227%3A0xdfd72ba3283c75f2!2sFlash%20line%20gargo!5e0!3m2!1sen!2skw!4v1768142427799!5m2!1sen!2skw"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+
+<!-- Galle -->
+  <div class="branch-box">
+    <h4>Sri Lanka (Galle)</h4>
+    <p>
+      📍 PINNADUWA, GALLE, SRI LANKA<br>
+      📞 +94 71 117 7155<br>
+      ✉️ <a href="mailto:flashlinecargo@yahoo.com" style="color:#000080;text-decoration:underline;font-style: italic">flashlinecargo@yahoo.com</a>
+    </p>
+
+    <div class="branch-map">
+      <iframe 
+        src="https://www.google.com/maps?q=Guangzhou%20China&output=embed"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+  
+   <!-- Nintavur -->
+  <div class="branch-box">
+    <h4>Sri Lanka (Nintavur)</h4>
+    <p>
+      📍 MAIN RD, ADDAPPALAM, NINTAVUR, SRI LANKA<br>
+      📞 +94 70 413 4727<br>
+      ✉️ <a href="mailto:flashlinecargo@yahoo.com" style="color:#000080;text-decoration:underline;font-style: italic">flashlinecargo@yahoo.com</a>
+    </p>
+
+    <div class="branch-map">
+      <iframe 
+        src="https://www.google.com/maps?q=Guangzhou%20China&output=embed"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+      
+  <!-- Philippines -->
+  <div class="branch-box">
+    <h4>Philippines (Cebu)</h4>
+    <p>
+      📍 MERA ANGELA COMPOUND BUILDIN 02 M.I QUEZON ST, CANSUNTINGAN, MANDAUE CITY, CEBU, PHILIPPINES<br>
+      📞 +93 315 47715 <br>
+      ✉️ <a href="mailto:flashlinecargo@yahoo.com" style="color:#000080;text-decoration:underline;font-style: italic">flashlinecargo@yahoo.com</a>
+    </p>
+
+    <div class="branch-map">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245.3094477919412!2d123.93174579517844!3d10.34579008491918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a99858c9e302a9%3A0x8a946fe291b481ae!2s8WWJ%2B9M5%2C%20Mandaue%2C%20Cebu%2C%20Philippines!5e0!3m2!1sen!2skw!4v1768142782059!5m2!1sen!2skw"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+  
+  <!-- Indonesia -->
+  <div class="branch-box">
+    <h4>Indonesia</h4>
+    <p>
+      📍 BLK A.24,JL. RAYA SERANG KM 28, RT 010/01, DESA SENTUAL JAYA, KEC, BALARAJA BRAT, TANGERANG 15610, INDONESIA<br>
+      📞 +62 858 0658 6182<br>
+      ✉️ <a href="mailto:flashlinecargo@yahoo.com" style="color:#000080;text-decoration:underline;font-style: italic">flashlinecargo@yahoo.com</a>
+    </p>
+
+    <div class="branch-map">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7932.7326365336!2d106.42856776714328!3d-6.215327138482766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e420300753a808d%3A0x390029639854a792!2sPergudangan%20Surya%20Balaraja%20Blok%20A40!5e0!3m2!1sen!2skw!4v1768142665751!5m2!1sen!2skw"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+   
+    <!-- Ethiopia -->
+  <div class="branch-box">
+    <h4>Ethiopia (Addis Ababa)</h4>
+    <p>
+      📍 BOLE ADDIS ABABA INTERNATIONAL AIRPORT, ETHIOPIA<br>
+      📞 +251 11 665 2222<br>
+      ✉️ <a href="mailto:flashlinecargo@yahoo.com" style="color:#000080;text-decoration:underline;font-style: italic">flashlinecargo@yahoo.com</a>
+    </p>
+
+    <div class="branch-map">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.8734254990977!2d38.79373147552605!3d8.983793189693955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b858fbf50bd97%3A0x93a0799b20ab0276!2sBole%20Addis%20Ababa%20International%20Airport!5e0!3m2!1sen!2skw!4v1767525395809!5m2!1sen!2skw"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+  
+</section>
+
+<!-- MASTER MAP -->
+<section class="master-map-section">
+  <h3>Our Global Network</h3>
+  <div class="master-map">
+    <iframe src="https://www.google.com/maps/d/embed?mid=1QuSaSOuFfQUiWuIlKlg3e0awMyxS5g4&ehbc=2E312F" width="640" height="480"></iframe>
+  </div>
+</section>
+
+<footer id="contact">
+    <p>© 2026 Flash Line Cargo Service. All Rights Reserved.</p>
+    <p>Email: <a href="mailto:flashlinecargo@yahoo.com" style="color:#ffcc00;text-decoration:none;">flashlinecargo@yahoo.com</a> | Phone: <a href="tel:+96524758850" style="color:#ffcc00;text-decoration:none;">+965 2475 8850</a></p>
+  </footer>
+
+  <div class="floating-contact"> 
+    <a href="www.facebook.com" class="floating-btn facebook" title="follow us">
+       <svg viewBox="0 0 320 512" width="28" height="28" fill="white">
+    <path d="M279.14 288l14.22-92.66h-88.91v-60.13
+    c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43
+    0 225.36 0c-73.22 0-121.08 44.38-121.08
+    124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+  </svg>
+</a>
+    <a href="www.tiktok.com" class="floating-btn tiktok" title="follow us">
+       <svg viewBox="0 0 448 512" width="28" height="28" fill="white">
+    <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31v84.6a78.81,78.81,0,1,0,55.8,75.47V0h84.43a125.18,125.18,0,0,0,1.86,22.17A126.51,126.51,0,0,0,448,209.91Z"/>
+  </svg> 
+    </a>
+
+    <a href="mailto:flashlinecargo@yahoo.com" class="floating-btn email" title="Send Email">✉️</a>
+    <a href="https://wa.me/+96551637705" class="floating-btn whatsapp" title="Chat on WhatsApp">💬</a>
+    <a href="tel:+9652458850" class="floating-btn call" title="Call Us">📞</a>
+  </div> 
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  const hero=document.querySelector(".page-hero");
+  if(!hero)return;
+  const backgrounds=[
+    "images/background/bg1.jpg",
+    "images/background/bg2.jpg",
+    "images/background/bg3.jpg",
+    "images/background/bg4.jpg",
+    "images/background/bg5.jpg"
+  ];
+  let i=0;
+  function rotate(){
+    hero.style.backgroundImage=
+      "linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.85)),url('"+backgrounds[i]+"')";
+    i=(i+1)%backgrounds.length;
+  }
+  rotate();
+  setInterval(rotate,6000);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Track Shipment | Flash Line Cargo Service</title>
+
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@900&display=swap');
+  
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+   body {
+      background: radial-gradient(circle at top, #1a3b5d, #0b1620 70%);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    body.preload * {
+      animation: none !important;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .fade-delay-1 { animation-delay: 0.3s; }
+    .fade-delay-2 { animation-delay: 0.6s; }
+    .fade-delay-3 { animation-delay: 0.9s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HEADER */
+    header {
+      background: rgba(15, 32, 39, 0.6);
+      backdrop-filter: blur(14px);
+      padding: 20px 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      animation: slideDown 1s ease forwards;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+	
+    header .logo {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    header .logo img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(255,204,0,0.8);
+      animation: logoFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+        header h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 35px !important;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #ffcc00, #ff9900);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+   nav a {
+      color: #eaeaea;
+      text-decoration: none;
+      margin-left: 30px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ffcc00, #ff9900);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after { width: 100%; }
+	
+
+    /* TRACKING HERO WITH BACKGROUND IMAGE */
+  .tracking-hero {
+   padding: 120px 40px 85px;
+   text-align: center;
+   position: relative;
+   overflow: hidden;
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   transition: background-image 1.5s ease-in-out;
+}
+
+    .tracking-hero h2 {
+      font-size: 50px;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #ffcc00, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tracking-hero p {
+      font-size: 20px;
+      color: #ddd;
+      margin-bottom: 40px;
+    }
+
+    .tracking-box {
+      max-width: 600px;
+      margin: auto;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+    }
+
+    .tracking-box input {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 18px;
+      border-radius: 14px;
+      border: none;
+      outline: none;
+      margin-bottom: 25px;
+    }
+
+    .tracking-box button {
+      width: 100%;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ffcc00, #ff9900);
+      color: #000;
+      box-shadow: 0 15px 35px rgba(255,153,0,0.4);
+      transition: transform 0.3s;
+    }
+
+    .tracking-box button:hover {
+      transform: translateY(-3px);
+    }
+
+    footer {
+      background: #0b1620;
+      padding: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+  </style>
+
+<style>
+.page-hero{
+  position:relative;
+  overflow:hidden;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  transition:background-image 1.5s ease-in-out;
+}
+
+
+/* ===============================
+   MOBILE RESPONSIVE FIX
+   =============================== */
+@media (max-width: 900px){
+
+/* ---------- HEADER ---------- */
+header{
+  flex-direction: column;
+  padding: 15px 20px;
+  text-align: center;
+}
+
+header .logo{
+  flex-direction: column;
+}
+
+header .logo img{
+  width: 70px;
+  height: 70px;
+}
+
+header h1{
+  font-size: 22px !important;
+  line-height: 1.2;
+}
+
+/* NAV */
+nav{
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+nav a{
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 14px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 30px;
+}
+
+/* ---------- HERO TEXT ---------- */
+.hero h2,
+.page-hero h2,
+.pickup-hero h2,
+.tracking-hero h2{
+  font-size: 32px !important;
+}
+
+.hero p,
+.page-hero p,
+.pickup-hero p{
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+/* ---------- SERVICES ---------- */
+.services{
+  padding: 60px 20px;
+}
+
+.service-grid{
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+/* ---------- ABOUT SPLIT ---------- */
+.about-split{
+  grid-template-columns: 1fr;
+  margin: 60px auto;
+}
+
+.about-photos{
+  grid-template-columns: 1fr 1fr;
+}
+
+.about-photos img{
+  height: 180px;
+}
+
+/* ---------- GALLERY ---------- */
+.section{
+  padding: 60px 20px;
+}
+
+.gallery-grid{
+  grid-template-columns: 1fr;
+}
+
+/* ---------- FORMS ---------- */
+.form-box{
+  padding: 25px;
+}
+
+input,select,textarea{
+  font-size: 16px;
+}
+
+/* ---------- FLOATING BUTTONS ---------- */
+.floating-contact{
+  right: 12px;
+  bottom: 12px;
+}
+
+.floating-btn{
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+}
+
+/* ---------- MAP ---------- */
+.master-map{
+  height: 300px;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding: 25px 15px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+}
+
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo">
+    <img src="./images/logo.png" alt="Flash Line Cargo Service Logo">
+    <h1>Flash Line Cargo <br>Service</h1>
+  </div>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="pickup.html">Pickup Request</a>
+	<a href="gallery.html">Gallery</a>
+    <a href="about.html">About Us</a>
+    <a href="branches.html">Contact Us</a>
+  </nav>
+</header>
+
+<section class="tracking-hero page-hero">
+  <h2 class="fade-up fade-delay-1">Track Your Shipment</h2>
+  <p class="fade-up fade-delay-2">Enter your tracking number below to get shipment status </p>
+
+    <div class="tracking-box">
+    <input type="text" id="trackingNumber" placeholder="Enter Tracking Number (e.g. 123456)">
+    <button onclick="trackShipment()">Track Shipment</button>
+    <div id="result" style="margin-top:25px;font-size:16px;line-height:1.6"></div>
+  </div>
+</section>
+
+<!-- Footer Note -->
+<footer>
+  <p>© 2026 Flash Line Cargo Service. All Rights Reserved.</p>
+  <p>
+    Email:
+    <a href="mailto:flashlinecargo@yahoo.com" style="color:#ffcc00;text-decoration:none;">
+      flashlinecargo@yahoo.com
+    </a>
+    |
+    Phone:
+    <a href="tel:+96524758850" style="color:#ffcc00;text-decoration:none;">
+      +965 2475 8850
+    </a>
+  </p>
+</footer>
+
+<!-- Tracking Code -->
+<script>
+  async function trackShipment() {
+    const trackingNumber = document.getElementById('trackingNumber').value.trim();
+    const result = document.getElementById('result');
+
+    if (!trackingNumber) {
+      result.innerHTML = '⚠️ Please enter a tracking number.';
+      return;
+    }
+
+    result.innerHTML = '⏳ Fetching live shipment data...';
+
+    const API_URL = 'https://script.google.com/macros/s/AKfycbyBt0nAYfsCE6vTjXbESIcjc9xnXJ1U5L0bkX7a4J9PFniVZWC7E9Ydwr-lbzxwX_yF/exec';
+
+    try {
+      const response = await fetch(`${API_URL}?tracking=${encodeURIComponent(trackingNumber)}`);
+      const data = await response.json();
+
+      if (data.error) {
+        result.innerHTML = '❌ Tracking number not found.';
+        return;
+      }
+
+      const payment = data.payment || '';
+      const paymentColor =
+        payment.toLowerCase().includes('un') ? 'red' : '#00ff99';
+
+      result.innerHTML = `
+        <strong>Shipper:</strong> ${data.shipper}<br>
+        <strong>Consignee:</strong> ${data.consignee}<br>
+        <strong>Warehouse:</strong> ${data.warehouse}<br>
+        <strong>Payment:</strong>
+        <span style="color:${paymentColor};font-weight:600">${payment}</span><br>
+        <strong>Status:</strong> ${data.status}<br>
+        <strong>Remark:</strong>
+        <span style="color:red;font-weight:600">${data.remark}</span>
+      `;
+    } catch (e) {
+      result.innerHTML = '❌ Unable to connect to tracking service.';
+    }
+  }
+</script>
+
+<!-- Changeble Background Code -->
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  const hero=document.querySelector(".page-hero");
+  if(!hero)return;
+  const backgrounds=[
+    "images/background/bg1.jpg",
+    "images/background/bg2.jpg",
+    "images/background/bg3.jpg",
+    "images/background/bg4.jpg",
+    "images/background/bg5.jpg"
+  ];
+  let i=0;
+  function rotate(){
+    hero.style.backgroundImage=
+      "linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.85)),url('"+backgrounds[i]+"')";
+    i=(i+1)%backgrounds.length;
+  }
+  rotate();
+  setInterval(rotate,6000);
+});
+</script>
+
+</body>
+</html>
