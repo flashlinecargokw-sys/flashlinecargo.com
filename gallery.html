@@ -393,19 +393,38 @@ fetch('gallery.json')
   data.videos.forEach(v => {
     videos.innerHTML += `
       <div class="gallery-item">
-        <video src="${v.src}" muted loop preload="none"></video>
+        		
+		<video muted playsinline loop preload="metadata">
+  <source src="${v.src}" type="video/mp4">
+</video>
+
         <div class="gallery-overlay"><span>${v.title}</span></div>
       </div>`;
   });
 
-  document.querySelectorAll('.gallery-item video').forEach(video=>{
-    const box = video.parentElement;
-    box.addEventListener('mouseenter',()=>video.play());
-    box.addEventListener('mouseleave',()=>{
-      video.pause();
-      video.currentTime = 0;
-    });
+ document.querySelectorAll('.gallery-item video').forEach(video=>{
+  const box = video.parentElement;
+
+  // hover = silent preview
+  box.addEventListener('mouseenter',()=>{
+    video.muted = true;
+    video.play().catch(()=>{});
   });
+
+  box.addEventListener('mouseleave',()=>{
+    video.pause();
+    video.currentTime = 0;
+    video.muted = true;
+  });
+
+  // click = sound ON
+  box.addEventListener('click',()=>{
+    video.muted = false;
+    video.controls = true;
+    video.play().catch(()=>{});
+  });
+});
+
 
 });
 </script>
