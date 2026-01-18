@@ -3,7 +3,14 @@
         {
             "title": "001",
             "src": "content\/photos\/001.jpeg"
-        }
+        },
+		{
+			"title": "001",
+            "src": "content\/photos\/001.jpeg"
+	    },
+		{
+			"title": "001",
+            "src": "content\/photos\/001.jpeg"
     ],
     "videos": [
         {
