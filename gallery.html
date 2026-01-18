@@ -427,7 +427,7 @@ fetch('gallery.json')
   data.photos.forEach(p => {
     photos.innerHTML += `
       <div class="gallery-item">
-        <img src="${p.src}" loading="lazy">
+        <div class="gallery-item" onclick="openLightbox('${p.src}')">
         <div class="gallery-overlay"><span>${p.title}</span></div>
       </div>`;
   });
