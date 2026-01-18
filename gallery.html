@@ -205,34 +205,130 @@ footer{
 }
 
 
-/* LIGHTBOX */
-.lightbox{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:99999;
-}
-.lightbox img{
-  max-width:90%;
-  max-height:90%;
-  border-radius:12px;
-  box-shadow:0 0 40px rgba(255,204,0,.4);
-  animation:zoomIn .4s;
-}
-.lightbox-close{
-  position:absolute;
-  top:30px;
-  right:40px;
-  font-size:42px;
-  color:#ffcc00;
-  cursor:pointer;
-}
-@keyframes zoomIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+/* ===============================
+   MOBILE RESPONSIVE FIX
+   =============================== */
+@media (max-width: 900px){
 
-footer{background:#0b1620;padding:40px;text-align:center;color:#aaa;border-top:1px solid rgba(255,255,255,.08)}
+/* ---------- HEADER ---------- */
+header{
+  flex-direction: column;
+  padding: 15px 20px;
+  text-align: center;
+}
+
+header .logo{
+  flex-direction: column;
+}
+
+header .logo img{
+  width: 70px;
+  height: 70px;
+}
+
+header h1{
+  font-size: 22px !important;
+  line-height: 1.2;
+}
+
+/* NAV */
+nav{
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+nav a{
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 14px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 30px;
+}
+
+/* ---------- HERO TEXT ---------- */
+.hero h2,
+.page-hero h2,
+.pickup-hero h2,
+.tracking-hero h2{
+  font-size: 32px !important;
+}
+
+.hero p,
+.page-hero p,
+.pickup-hero p{
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+/* ---------- SERVICES ---------- */
+.services{
+  padding: 60px 20px;
+}
+
+.service-grid{
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+/* ---------- ABOUT SPLIT ---------- */
+.about-split{
+  grid-template-columns: 1fr;
+  margin: 60px auto;
+}
+
+.about-photos{
+  grid-template-columns: 1fr 1fr;
+}
+
+.about-photos img{
+  height: 180px;
+}
+
+/* ---------- GALLERY ---------- */
+.section{
+  padding: 60px 20px;
+}
+
+.gallery-grid{
+  grid-template-columns: 1fr;
+}
+
+/* ---------- FORMS ---------- */
+.form-box{
+  padding: 25px;
+}
+
+input,select,textarea{
+  font-size: 16px;
+}
+
+/* ---------- FLOATING BUTTONS ---------- */
+.floating-contact{
+  right: 12px;
+  bottom: 12px;
+}
+
+.floating-btn{
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+}
+
+/* ---------- MAP ---------- */
+.master-map{
+  height: 300px;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding: 25px 15px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+}
 
 
 </style>
@@ -246,7 +342,7 @@ footer{background:#0b1620;padding:40px;text-align:center;color:#aaa;border-top:1
     <h1>Flash Line Cargo <br>Service</h1>
   </div>
   <nav>
-    <a href="index.html">Home</a>
+    <a href="home.html">Home</a>
     <a href="tracking.html">Tracking</a>
     <a href="gallery.html">Gallery</a>
 	<a href="about.html">About Us</a>
@@ -277,18 +373,6 @@ footer{background:#0b1620;padding:40px;text-align:center;color:#aaa;border-top:1
     <p>Email: <a href="mailto:flashlinecargo@yahoo.com" style="color:#ffcc00;text-decoration:none;">flashlinecargo@yahoo.com</a> | Phone: <a href="tel:+96524758850" style="color:#ffcc00;text-decoration:none;">+965 2475 8850</a></p>
   </footer>
 
-
-<script>
-function openLightbox(src){
-  document.getElementById("lightbox").style.display="flex";
-  document.getElementById("lightbox-img").src=src;
-}
-function closeLightbox(){
-  document.getElementById("lightbox").style.display="none";
-}
-</script>
-
-
 <!-- AUTO LOAD SCRIPT -->
 <script>
 fetch('gallery.json')
@@ -300,7 +384,7 @@ fetch('gallery.json')
 
   data.photos.forEach(p => {
     photos.innerHTML += `
-      <div class="gallery-item" onclick="openLightbox('${p.src}')">
+      <div class="gallery-item">
         <img src="${p.src}" loading="lazy">
         <div class="gallery-overlay"><span>${p.title}</span></div>
       </div>`;
