@@ -400,6 +400,21 @@ footer{background:#0b1620;padding:40px;text-align:center;color:#aaa;border-top:1
     <p>Email: <a href="mailto:flashlinecargo@yahoo.com" style="color:#ffcc00;text-decoration:none;">flashlinecargo@yahoo.com</a> | Phone: <a href="tel:+96524758850" style="color:#ffcc00;text-decoration:none;">+965 2475 8850</a></p>
   </footer>
 
+	 <div class="lightbox" id="lightbox">
+  <span class="lightbox-close" onclick="closeLightbox()">×</span>
+  <img id="lightbox-img">
+</div>
+
+<script>
+function openLightbox(src){
+  document.getElementById("lightbox").style.display="flex";
+  document.getElementById("lightbox-img").src=src;
+}
+function closeLightbox(){
+  document.getElementById("lightbox").style.display="none";
+}
+</script>
+	
 <!-- AUTO LOAD SCRIPT -->
 <script>
 fetch('gallery.json')
