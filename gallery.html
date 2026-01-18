@@ -203,6 +203,38 @@ footer{
   color:#aaa;
   border-top:1px solid rgba(255,255,255,.08);
 }
+
+
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+}
+.lightbox img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:12px;
+  box-shadow:0 0 40px rgba(255,204,0,.4);
+  animation:zoomIn .4s;
+}
+.lightbox-close{
+  position:absolute;
+  top:30px;
+  right:40px;
+  font-size:42px;
+  color:#ffcc00;
+  cursor:pointer;
+}
+@keyframes zoomIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+
+footer{background:#0b1620;padding:40px;text-align:center;color:#aaa;border-top:1px solid rgba(255,255,255,.08)}
+
+
 </style>
 </head>
 
@@ -245,6 +277,18 @@ footer{
     <p>Email: <a href="mailto:flashlinecargo@yahoo.com" style="color:#ffcc00;text-decoration:none;">flashlinecargo@yahoo.com</a> | Phone: <a href="tel:+96524758850" style="color:#ffcc00;text-decoration:none;">+965 2475 8850</a></p>
   </footer>
 
+
+<script>
+function openLightbox(src){
+  document.getElementById("lightbox").style.display="flex";
+  document.getElementById("lightbox-img").src=src;
+}
+function closeLightbox(){
+  document.getElementById("lightbox").style.display="none";
+}
+</script>
+
+
 <!-- AUTO LOAD SCRIPT -->
 <script>
 fetch('gallery.json')
@@ -256,7 +300,7 @@ fetch('gallery.json')
 
   data.photos.forEach(p => {
     photos.innerHTML += `
-      <div class="gallery-item">
+      <div class="gallery-item" onclick="openLightbox('${p.src}')">
         <img src="${p.src}" loading="lazy">
         <div class="gallery-overlay"><span>${p.title}</span></div>
       </div>`;
