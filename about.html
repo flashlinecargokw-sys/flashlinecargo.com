@@ -78,7 +78,7 @@
       100% { transform: translateY(0); }
     }
 
-    header h1 {
+        header h1 {
       font-family: 'Montserrat', sans-serif;
       font-size: 35px !important;
       font-weight: 800;
@@ -89,7 +89,7 @@
       -webkit-text-fill-color: transparent;
     }
 
-    nav a {
+   nav a {
       color: #eaeaea;
       text-decoration: none;
       margin-left: 30px;
@@ -109,18 +109,19 @@
     }
 
     nav a:hover::after { width: 100%; }
+	
 
     /* TRACKING HERO WITH BACKGROUND IMAGE */
-    .tracking-hero {
-      padding: 120px 40px 85px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: background-image 1.5s ease-in-out;
-    }
+  .tracking-hero {
+   padding: 120px 40px 85px;
+   text-align: center;
+   position: relative;
+   overflow: hidden;
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   transition: background-image 1.5s ease-in-out;
+}
 
     .tracking-hero h2 {
       font-size: 50px;
@@ -130,6 +131,7 @@
       -webkit-text-fill-color: transparent;
     }
 
+ 
     footer {
       background: #0b1620;
       padding: 40px;
@@ -139,175 +141,224 @@
       border-top: 1px solid rgba(255,255,255,0.08);
     }
 
-    /* SPLIT SECTION */
-    .about-split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
-      max-width: 1200px;
-      margin: 100px auto;
-      padding: 0 40px;
-    }
+/* SPLIT SECTION */
+.about-split{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+  max-width:1200px;
+  margin:100px auto;
+  padding:0 40px;
+}
 
-    .about-text {
-      background: linear-gradient(145deg,#0f2027,#203a43);
-      padding: 40px;
-      border-radius: 24px;
-      box-shadow: 0 20px 50px rgba(0,0,0,.4);
-    }
+.about-text{
+  background:linear-gradient(145deg,#0f2027,#203a43);
+  padding:40px;
+  border-radius:24px;
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
 
-    .about-text h3 {
-      font-size: 34px;
-      margin-bottom: 20px;
-      background: linear-gradient(90deg,#ffcc00,#ffffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+.about-text h3{
+  font-size:34px;
+  margin-bottom:20px;
+  background:linear-gradient(90deg,#ffcc00,#ffffff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 
-    .about-text p {
-      font-size: 18px;
-      line-height: 1.8;
-      color: #ddd;
-    }
+.about-text p{
+  font-size:18px;
+  line-height:1.8;
+  color:#ddd;
+}
 
-    .about-photos {
-      display: grid;
-      grid-template-columns: repeat(2,1fr);
-      gap: 20px;
-    }
+.about-photos{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
 
-    .about-photos img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      border-radius: 18px;
-      cursor: pointer;
-      transition: .4s;
-      box-shadow: 0 20px 40px rgba(0,0,0,.4);
-    }
+.about-photos img{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+  border-radius:18px;
+  cursor:pointer;
+  transition:.4s;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
 
-    .about-photos img:hover {
-      transform: scale(1.05);
-    }
+.about-photos img:hover{transform:scale(1.05);}
 
-    /* LIGHTBOX */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.85);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 99999;
-    }
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 12px;
-      box-shadow: 0 0 40px rgba(255,204,0,.4);
-      animation: zoomIn .4s;
-    }
-    .lightbox-close {
-      position: absolute;
-      top: 30px;
-      right: 40px;
-      font-size: 42px;
-      color: #ffcc00;
-      cursor: pointer;
-    }
-    @keyframes zoomIn {
-      from { transform: scale(.7); opacity: 0 }
-      to { transform: scale(1); opacity: 1 }
-    }
+/* LIGHTBOX */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+}
+.lightbox img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:12px;
+  box-shadow:0 0 40px rgba(255,204,0,.4);
+  animation:zoomIn .4s;
+}
+.lightbox-close{
+  position:absolute;
+  top:30px;
+  right:40px;
+  font-size:42px;
+  color:#ffcc00;
+  cursor:pointer;
+}
+@keyframes zoomIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 
-    .page-hero {
-      position: relative;
-      overflow: hidden;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: background-image 1.5s ease-in-out;
-    }
+footer{background:#0b1620;padding:40px;text-align:center;color:#aaa;border-top:1px solid rgba(255,255,255,.08)}
+</style>
 
-    /* ===============================
-       MOBILE RESPONSIVE FIX
-       =============================== */
-    @media (max-width: 900px) {
-      /* ---------- HEADER ---------- */
-      header {
-        flex-direction: column;
-        padding: 15px 20px;
-        text-align: center;
-      }
+<style>
+.page-hero{
+  position:relative;
+  overflow:hidden;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  transition:background-image 1.5s ease-in-out;
+}
 
-      header .logo {
-        flex-direction: column;
-      }
+/* ===============================
+   MOBILE RESPONSIVE FIX
+   =============================== */
+@media (max-width: 900px){
 
-      header .logo img {
-        width: 70px;
-        height: 70px;
-      }
+/* ---------- HEADER ---------- */
+header{
+  flex-direction: column;
+  padding: 15px 20px;
+  text-align: center;
+}
 
-      header h1 {
-        font-size: 22px !important;
-        line-height: 1.2;
-      }
+header .logo{
+  flex-direction: column;
+}
 
-      /* NAV */
-      nav {
-        margin-top: 15px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 12px;
-      }
+header .logo img{
+  width: 70px;
+  height: 70px;
+}
 
-      nav a {
-        margin: 0;
-        padding: 10px 14px;
-        font-size: 14px;
-        background: rgba(255,255,255,0.05);
-        border-radius: 30px;
-      }
+header h1{
+  font-size: 22px !important;
+  line-height: 1.2;
+}
 
-      /* ---------- HERO TEXT ---------- */
-      .hero h2,
-      .page-hero h2,
-      .pickup-hero h2,
-      .tracking-hero h2 {
-        font-size: 32px !important;
-      }
+/* NAV */
+nav{
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
 
-      .hero p,
-      .page-hero p,
-      .pickup-hero p {
-        font-size: 16px;
-        padding: 0 10px;
-      }
+nav a{
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 14px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 30px;
+}
 
-      /* ---------- ABOUT SPLIT ---------- */
-      .about-split {
-        grid-template-columns: 1fr;
-        margin: 60px auto;
-      }
+/* ---------- HERO TEXT ---------- */
+.hero h2,
+.page-hero h2,
+.pickup-hero h2,
+.tracking-hero h2{
+  font-size: 32px !important;
+}
 
-      .about-photos {
-        grid-template-columns: 1fr 1fr;
-      }
+.hero p,
+.page-hero p,
+.pickup-hero p{
+  font-size: 16px;
+  padding: 0 10px;
+}
 
-      .about-photos img {
-        height: 180px;
-      }
+/* ---------- SERVICES ---------- */
+.services{
+  padding: 60px 20px;
+}
 
-      /* ---------- FOOTER ---------- */
-      footer {
-        padding: 25px 15px;
-        font-size: 12px;
-        line-height: 1.6;
-      }
-    }
+.service-grid{
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+/* ---------- ABOUT SPLIT ---------- */
+.about-split{
+  grid-template-columns: 1fr;
+  margin: 60px auto;
+}
+
+.about-photos{
+  grid-template-columns: 1fr 1fr;
+}
+
+.about-photos img{
+  height: 180px;
+}
+
+/* ---------- GALLERY ---------- */
+.section{
+  padding: 60px 20px;
+}
+
+.gallery-grid{
+  grid-template-columns: 1fr;
+}
+
+/* ---------- FORMS ---------- */
+.form-box{
+  padding: 25px;
+}
+
+input,select,textarea{
+  font-size: 16px;
+}
+
+/* ---------- FLOATING BUTTONS ---------- */
+.floating-contact{
+  right: 12px;
+  bottom: 12px;
+}
+
+.floating-btn{
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+}
+
+/* ---------- MAP ---------- */
+.master-map{
+  height: 300px;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding: 25px 15px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+}
+
+
+
+
 </style>
 
 </head>
@@ -316,13 +367,13 @@
 
 <header>
   <div class="logo">
-    <img src="images/logo.png" alt="Flash Line Cargo Service Logo">
+    <img src="images/logo.png">
     <h1>Flash Line Cargo <br>Service</h1>
   </div>
   <nav>
     <a href="home.html">Home</a>
     <a href="tracking.html">Tracking</a>
-    <a href="pickup.html">Pickup Request</a>
+    <a href="pickup.html">Pickup</a>
     <a href="gallery.html">Gallery</a>
     <a href="about.html">About Us</a>
     <a href="branches.html">Contact Us</a>
@@ -348,33 +399,32 @@
   </div>
  
   <div class="about-photos">
-    <img src="images/about/about_1.jpg" onclick="openLightbox(this.src)" alt="Cargo handling image 1">
-    <img src="images/about/about_2.jpg" onclick="openLightbox(this.src)" alt="Cargo handling image 2">
-    <img src="images/about/about_3.jpg" onclick="openLightbox(this.src)" alt="Cargo handling image 3">
-    <img src="images/about/about_4.jpg" onclick="openLightbox(this.src)" alt="Cargo handling image 4">
+    <img src="images/about/about_1.jpg" onclick="openLightbox(this.src)">
+    <img src="images/about/about_2.jpg" onclick="openLightbox(this.src)">
+    <img src="images/about/about_3.jpg" onclick="openLightbox(this.src)">
+    <img src="images/about/about_4.jpg" onclick="openLightbox(this.src)">
   </div>
 </section>
 
 <!--2-->
 <section class="about-split">
   <div class="about-photos">
-    <img src="images/about/about_5.jpg" onclick="openLightbox(this.src)" alt="Global logistics image 1">
-    <img src="images/about/about_6.jpg" onclick="openLightbox(this.src)" alt="Global logistics image 2">
-    <img src="images/about/about_7.jpg" onclick="openLightbox(this.src)" alt="Global logistics image 3">
-    <img src="images/about/about_8.jpg" onclick="openLightbox(this.src)" alt="Global logistics image 4">
+    <img src="images/about/about_5.jpg" onclick="openLightbox(this.src)">
+    <img src="images/about/about_6.jpg" onclick="openLightbox(this.src)">
+    <img src="images/about/about_7.jpg" onclick="openLightbox(this.src)">
+    <img src="images/about/about_8.jpg" onclick="openLightbox(this.src)">
   </div>
   
    <div class="about-text">
-    <h3 align="center">Global Reach, Local Expertise</h3>
+    <h3 align="center">Precision in Motion, Expertise Worldwide</h3>
     <p>
-      With years of experience in international logistics, <strong>Flash Line Cargo</strong> 
-      connects Kuwait to the world. Our extensive network ensures your shipments reach 
-      their destinations efficiently and securely.
-      <br><br>
-      We pride ourselves on personalized service and attention to detail in every shipment.
-    </p>
+      With years of experience in international logistics, <strong>Flash Line Cargo </strong>connects Kuwait to over <strong>200 </strong>destinations worldwide. Every parcel, and crate is meticulously scanned, securely managed, and delivered with unmatched, military-grade accuracy—ensuring efficiency, reliability, and peace of mind at every step.
+<br>
+	  We pride ourselves on personalized service and attention to detail, making sure your shipments are safe, on time, and handled with the professionalism you can trust.
+      </p>
   </div>
 </section> 
+
 
 <!-- Footer Note -->
 <footer>
@@ -394,7 +444,7 @@
 
 <div class="lightbox" id="lightbox">
   <span class="lightbox-close" onclick="closeLightbox()">×</span>
-  <img id="lightbox-img" alt="Enlarged cargo image">
+  <img id="lightbox-img">
 </div>
 
 <script>
