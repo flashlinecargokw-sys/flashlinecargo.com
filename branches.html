@@ -467,10 +467,60 @@ footer{
   line-height: 1.6;
 }
 }
-
-
 </style>
 
+
+<!-- Google reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<!--ontact us-->
+<style>
+body {
+  background: #0b1620;
+  font-family: Poppins, Arial, sans-serif;
+  color: #fff;
+}
+
+.contact-box {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 30px;
+  background: #1a3b5d;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0,0,0,.4);
+}
+
+.contact-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.contact-box input,
+.contact-box textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 6px;
+  background: #0b1620;
+  color: #fff;
+}
+
+.contact-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #ff9800;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+.contact-box button:hover {
+  background: #ffc107;
+}
+</style>
 </head>
 
 <body>
@@ -773,5 +823,32 @@ document.addEventListener("DOMContentLoaded",()=>{
 });
 </script>
 
+<!--contact us-->
+<div class="contact-box">
+  <h2>Contact Us</h2>
+
+  <form action="https://formsubmit.co/your@email.com" method="POST">
+
+    <!-- SPAM PROTECTION -->
+    <input type="hidden" name="_captcha" value="true">
+    <input type="hidden" name="_delay" value="5">
+    <input type="text" name="_honey" style="display:none">
+
+    <!-- OPTIONAL SETTINGS -->
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" value="thankyou.html">
+
+    <!-- FIELDS -->
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <input type="text" name="subject" placeholder="Subject" required>
+    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+
+    <!-- reCAPTCHA -->
+    <div class="g-recaptcha" data-sitekey="6Lcl3VQsAAAAAEDQ3_N-jxBKezQAyE7SGJ5olZOq"></div>
+
+    <button type="submit">Send Message</button>
+  </form>
+</div>
 </body>
 </html>
