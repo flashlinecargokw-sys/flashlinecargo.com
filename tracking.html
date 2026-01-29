@@ -6,7 +6,7 @@
   <title>Track Shipment | Flash Line Cargo Service</title>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap');
 
     * {
       margin: 0;
@@ -19,107 +19,719 @@
       background: radial-gradient(circle at top, #1a3b5d, #0b1620 70%);
       color: #ffffff;
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    body.preload * { animation: none !important; }
+    /* Animated background particles */
+    .bg-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
 
-    .fade-up { opacity: 0; transform: translateY(40px); animation: fadeUp 1.2s ease forwards; }
-    .fade-delay-1 { animation-delay: 0.3s; }
-    .fade-delay-2 { animation-delay: 0.6s; }
-    .fade-delay-3 { animation-delay: 0.9s; }
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 204, 0, 0.3);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+    }
 
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes float {
+      0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+    }
+
+    /* Floating animation for hero text */
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
 
     /* HEADER */
     header {
-      background: rgba(15, 32, 39, 0.6);
-      backdrop-filter: blur(14px);
+      background: rgba(15, 32, 39, 0.7);
+      backdrop-filter: blur(20px);
       padding: 20px 50px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      z-index: 10;
       animation: slideDown 1s ease forwards;
     }
 
-    @keyframes slideDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideDown { 
+      from { opacity: 0; transform: translateY(-40px); } 
+      to { opacity: 1; transform: translateY(0); } 
+    }
+
+    /* Fade Up Animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .fade-delay-1 {
+      animation-delay: 0.2s;
+    }
+
+    .fade-delay-2 {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
     header .logo { display: flex; align-items: center; gap: 18px; }
     header .logo img {
-      width: 90px; height: 90px; border-radius: 50%;
-      box-shadow: 0 0 25px rgba(255,204,0,0.8);
+      width: 80px; height: 80px; border-radius: 50%;
+      box-shadow: 0 0 30px rgba(255,204,0,0.6);
       animation: logoFloat 4s ease-in-out infinite;
+      border: 3px solid rgba(255,204,0,0.3);
     }
 
-    @keyframes logoFloat { 0% { transform: translateY(0); } 50% { transform: translateY(-6px); } 100% { transform: translateY(0); } }
+    @keyframes logoFloat { 
+      0%, 100% { transform: translateY(0); } 
+      50% { transform: translateY(-8px); } 
+    }
 
     header h1 {
       font-family: 'Montserrat', sans-serif;
-      font-size: 35px !important; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
-      background: linear-gradient(90deg, #ffcc00, #ff9900);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      font-size: 32px; 
+      font-weight: 800; 
+      letter-spacing: 2px; 
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffcc00 0%, #ff9900 50%, #ffcc00 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent;
+      animation: shine 3s linear infinite;
     }
+
+    @keyframes shine { to { background-position: 200% center; } }
 
     nav a {
-      color: #eaeaea; text-decoration: none; margin-left: 30px; font-weight: 500; position: relative;
+      color: #eaeaea; 
+      text-decoration: none; 
+      margin-left: 30px; 
+      font-weight: 500; 
+      position: relative;
+      transition: color 0.3s;
     }
 
+    nav a:hover { color: #ffcc00; }
     nav a::after {
-      content: ''; position: absolute; left: 0; bottom: -6px; width: 0; height: 2px;
-      background: linear-gradient(90deg, #ffcc00, #ff9900); transition: width 0.3s ease;
+      content: ''; 
+      position: absolute; 
+      left: 50%; 
+      bottom: -6px; 
+      width: 0; 
+      height: 2px;
+      background: linear-gradient(90deg, #ffcc00, #ff9900); 
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
     }
 
     nav a:hover::after { width: 100%; }
 
     /* TRACKING HERO */
-    .tracking-hero { padding: 120px 40px 85px; text-align: center; position: relative; overflow: hidden; background-size: cover; background-position: center; background-repeat: no-repeat; transition: background-image 1.5s ease-in-out; }
+    .tracking-hero { 
+      padding: 100px 40px 85px; 
+      text-align: center; 
+      position: relative; 
+      z-index: 1;
+      background-size: cover; 
+      background-position: center; 
+      background-attachment: fixed;
+    }
 
-    .tracking-hero h2 { font-size: 50px; margin-bottom: 20px; background: linear-gradient(90deg, #ffcc00, #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    /* Heading: fade up → gradient shimmer → float */
+    .tracking-hero h2 { 
+      font-size: 48px; 
+      margin-bottom: 15px; 
+      background: linear-gradient(135deg, #ffcc00, #ffffff, #ffcc00);
+      background-size: 200% auto;
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 10px 30px rgba(255,204,0,0.3);
+      /* Chain: fadeUp (0.8s, delay 0.2s), gradient (starts 0.2s), floatY (starts after fadeUp completes at 1.0s) */
+      animation: 
+        fadeUp 0.8s ease 0.2s forwards, 
+        gradient 3s ease 0.2s infinite, 
+        floatY 4s ease-in-out 1.0s infinite;
+    }
 
-    .tracking-hero p { font-size: 20px; color: #ddd; margin-bottom: 40px; }
+    @keyframes gradient { 
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
+    /* Subtitle: fade up then float (slightly offset timing) */
+    .tracking-hero p { 
+      font-size: 18px; 
+      color: rgba(255,255,255,0.7); 
+      margin-bottom: 40px;
+      font-weight: 300;
+      /* fadeUp starts at 0.4s (matches fade-delay-2), floatY starts at 1.2s */
+      animation: 
+        fadeUp 0.8s ease 0.4s forwards, 
+        floatY 4s ease-in-out 1.2s infinite;
+    }
+
+    /* Glassmorphism Tracking Box */
     .tracking-box {
-      max-width: 600px; margin: auto; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px);
-      padding: 40px; border-radius: 24px; box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+      max-width: 650px; 
+      margin: auto; 
+      background: rgba(255,255,255,0.05); 
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 50px 40px; 
+      border-radius: 30px; 
+      box-shadow: 
+        0 25px 50px rgba(0,0,0,0.4),
+        inset 0 1px 1px rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .tracking-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 
+        0 35px 60px rgba(0,0,0,0.5),
+        inset 0 1px 1px rgba(255,255,255,0.2);
+    }
+
+    .tracking-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,204,0,0.1) 0%, transparent 70%);
+      opacity: 0.5;
+      pointer-events: none;
     }
 
     .tracking-box input {
-      width: 100%; padding: 16px 20px; font-size: 18px; border-radius: 14px; border: none; outline: none; margin-bottom: 25px;
+      width: 100%; 
+      padding: 20px 25px; 
+      font-size: 16px; 
+      border-radius: 16px; 
+      border: 2px solid rgba(255,255,255,0.1);
+      outline: none; 
+      margin-bottom: 25px;
+      background: rgba(0,0,0,0.3);
+      color: white;
+      transition: all 0.3s;
     }
+
+    .tracking-box input:focus {
+      border-color: #ffcc00;
+      box-shadow: 0 0 20px rgba(255,204,0,0.2);
+      background: rgba(0,0,0,0.5);
+    }
+
+    .tracking-box input::placeholder { color: rgba(255,255,255,0.4); }
 
     .tracking-box button {
-      width: 100%; padding: 16px; font-size: 18px; font-weight: 600; border-radius: 30px;
-      border: none; cursor: pointer; background: linear-gradient(135deg, #ffcc00, #ff9900); color: #000;
-      box-shadow: 0 15px 35px rgba(255,153,0,0.4); transition: transform 0.3s;
+      width: 100%; 
+      padding: 18px; 
+      font-size: 17px; 
+      font-weight: 700; 
+      border-radius: 16px;
+      border: none; 
+      cursor: pointer; 
+      background: linear-gradient(135deg, #ffcc00, #ff9900); 
+      color: #000;
+      box-shadow: 
+        0 10px 30px rgba(255,153,0,0.4),
+        0 0 0 0 rgba(255,204,0,0.7);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .tracking-box button:hover { transform: translateY(-3px); }
+    .tracking-box button:hover { 
+      transform: translateY(-2px);
+      box-shadow: 
+        0 15px 40px rgba(255,153,0,0.5),
+        0 0 0 10px rgba(255,204,0,0);
+      animation: pulse 1.5s infinite;
+    }
 
-    /* RESULT TABLE */
-    #result table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 16px; line-height: 1.6; }
-    #result td { padding: 8px 0; }
-    #result td:first-child { font-weight: 600; color: #ffcc00; width: 30%; }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,204,0,0.4); }
+      70% { box-shadow: 0 0 0 20px rgba(255,204,0,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,204,0,0); }
+    }
 
-    footer { background: #0b1620; padding: 40px; text-align: center; font-size: 14px; color: #aaa; border-top: 1px solid rgba(255,255,255,0.08); }
+    .tracking-box button:active { transform: translateY(0); }
+
+    /* BEAUTIFUL RESULT CARD */
+    #result {
+      margin-top: 30px;
+      display: none;
+      animation: slideUpFade 0.6s ease forwards;
+    }
+
+    @keyframes slideUpFade {
+      from { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.95); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+      }
+    }
+
+    .result-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 
+        0 20px 60px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(255,255,255,0.1);
+      position: relative;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* Animated header gradient */
+    .result-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-size: 200% 200%;
+      animation: gradientBG 5s ease infinite;
+      color: white;
+      padding: 25px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .result-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .result-header-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .bill-no-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0.9;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .bill-no-value {
+      font-size: 28px;
+      font-weight: 800;
+      font-family: 'Montserrat', sans-serif;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .status-badge {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid rgba(255,255,255,0.3);
+      animation: pulse-badge 2s infinite;
+    }
+
+    @keyframes pulse-badge {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Client Info Section */
+    .client-section {
+      padding: 30px;
+      background: linear-gradient(to bottom, #f8fafc, #ffffff);
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .client-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 12px 0;
+      border-bottom: 1px dashed #e2e8f0;
+      transition: all 0.3s;
+    }
+
+    .client-row:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    .client-row:hover {
+      background: rgba(102, 126, 234, 0.05);
+      margin: 0 -30px;
+      padding: 12px 30px;
+      border-radius: 12px;
+    }
+
+    .client-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      font-size: 20px;
+      background: linear-gradient(135deg, #667eea20, #764ba220);
+      border: 2px solid #667eea30;
+      transition: transform 0.3s;
+    }
+
+    .client-row:hover .client-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .shipper-icon { color: #667eea; }
+    .consignee-icon { color: #764ba2; }
+
+    .client-info {
+      flex: 1;
+      text-align: left;
+    }
+
+    .client-label {
+      font-size: 11px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .client-value {
+      font-size: 16px;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    /* Details Grid */
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: white;
+    }
+
+    .detail-item {
+      padding: 25px;
+      border-right: 1px solid #f1f5f9;
+      border-bottom: 1px solid #f1f5f9;
+      text-align: left;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .detail-item:nth-child(even) { border-right: none; }
+    .detail-item:nth-child(3), .detail-item:nth-child(4) { border-bottom: none; }
+
+    .detail-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 0;
+      background: linear-gradient(to bottom, #667eea, #764ba2);
+      transition: height 0.3s;
+    }
+
+    .detail-item:hover::before {
+      height: 100%;
+    }
+
+    .detail-item:hover {
+      background: #f8fafc;
+      transform: translateX(5px);
+    }
+
+    .detail-icon {
+      font-size: 24px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .detail-label {
+      font-size: 12px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .detail-value {
+      font-size: 18px;
+      color: #1e293b;
+      font-weight: 700;
+    }
+
+    /* Payment & Status Special Styling */
+    .status-paid { 
+      color: #10b981 !important; 
+      text-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    }
+    .status-unpaid { 
+      color: #ef4444 !important; 
+      text-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+    }
+    .status-pending { 
+      color: #f59e0b !important; 
+      text-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+    }
+
+    .cargo-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: blink 2s infinite;
+      box-shadow: 0 0 10px currentColor;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Remark Section */
+    .remark-section {
+      padding: 25px 30px;
+      background: linear-gradient(135deg, #fef2f2, #ffffff);
+      border-top: 2px solid #fecaca;
+      position: relative;
+    }
+
+    .remark-section::before {
+      content: '💬';
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 40px;
+      opacity: 0.1;
+    }
+
+    .remark-label {
+      font-size: 12px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .remark-value {
+      color: #dc2626;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    /* Footer Button */
+    .card-footer {
+      padding: 25px 30px;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+    }
+
+    /* Secondary/New Search Button Style */
+    .btn-secondary {
+      background: white;
+      color: #64748b;
+      border: 2px solid #e2e8f0;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      border-color: #667eea;
+      color: #667eea;
+      background: rgba(102, 126, 234, 0.05);
+    }
+
+    /* Loading Animation */
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #ffcc00;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 10px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    footer { 
+      background: rgba(11, 22, 32, 0.8); 
+      padding: 40px; 
+      text-align: center; 
+      font-size: 14px; 
+      color: #64748b; 
+      border-top: 1px solid rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      margin-top: 50px;
+    }
+
+    footer a {
+      color: #ffcc00;
+      text-decoration: none;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    footer a:hover {
+      color: #ff9900;
+      text-shadow: 0 0 10px rgba(255,204,0,0.5);
+    }
 
     /* RESPONSIVE */
     @media (max-width: 900px){
-      header{ flex-direction: column; padding: 15px 20px; text-align: center; }
-      header .logo{ flex-direction: column; }
-      header .logo img{ width: 70px; height: 70px; }
-      header h1{ font-size: 22px !important; line-height: 1.2; }
-      nav{ margin-top: 15px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-      nav a{ margin: 0; padding: 10px 14px; font-size: 14px; background: rgba(255,255,255,0.05); border-radius: 30px; }
-      .tracking-hero h2{ font-size: 32px !important; }
-      .tracking-hero p{ font-size: 16px; padding: 0 10px; }
-      .tracking-box{ padding: 25px; }
-      input,select,textarea{ font-size: 16px; }
+      header{ flex-direction: column; padding: 15px 20px; }
+      header .logo img{ width: 60px; height: 60px; }
+      header h1{ font-size: 24px; }
+      nav{ margin-top: 15px; flex-wrap: wrap; gap: 10px; }
+      nav a{ margin: 0; font-size: 13px; }
+      .tracking-hero h2{ font-size: 32px; }
+      .tracking-box{ padding: 30px 25px; }
+      
+      .details-grid { grid-template-columns: 1fr; }
+      .detail-item { border-right: none; }
+      .detail-item:nth-child(3) { border-bottom: 1px solid #f1f5f9; }
+      
+      .card-footer {
+        flex-direction: column;
+      }
+      
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
   
  </head>
 
 <body>
+
+<!-- Background Particles -->
+<div class="bg-particles" id="particles"></div>
+
 <header>
   <div class="logo">
     <img src="./images/logo.png" alt="Flash Line Cargo Service Logo">
@@ -135,13 +747,15 @@
 </header>
 
 <section class="tracking-hero page-hero">
-  <h2 class="fade-up fade-delay-1">Track Your Shipment</h2>
-  <p class="fade-up fade-delay-2">Enter your tracking number below to get shipment status</p>
+  <h2>Track Your Shipment</h2>
+  <p>Enter your tracking number below to get shipment status</p>
 
   <div class="tracking-box">
     <input type="text" id="trackingNumber" placeholder="Enter Tracking Number (e.g. 123456)">
-    <button onclick="trackShipment()">Track Shipment</button>
-    <div id="result" style="margin-top:25px;font-size:16px;line-height:1.6" aria-live="polite"></div>
+    <button onclick="trackShipment()">
+      <span id="btnText">Track Shipment</span>
+    </button>
+    <div id="result" aria-live="polite"></div>
   </div>
 </section>
 
@@ -149,86 +763,214 @@
   <p>© 2026 Flash Line Cargo Service. All Rights Reserved.</p>
   <p>
     Email:
-    <a href="mailto:flashlinecargo@yahoo.com" style="color:#ffcc00;text-decoration:none;">flashlinecargo@yahoo.com</a> |
+    <a href="mailto:flashlinecargo@yahoo.com">flashlinecargo@yahoo.com</a> |
     Phone:
-    <a href="tel:+96524758850" style="color:#ffcc00;text-decoration:none;">+965 2475 8850</a>
+    <a href="tel:+96524758850">+965 2475 8850</a>
   </p>
 </footer>
 
 <script>
+  // Create particles
+  for(let i=0; i<20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDelay = Math.random() * 20 + 's';
+    p.style.animationDuration = (15 + Math.random() * 10) + 's';
+    document.getElementById('particles').appendChild(p);
+  }
+
+  // Enter key support for tracking input
+  document.getElementById('trackingNumber').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      trackShipment();
+    }
+  });
+
+  function newSearch() {
+    document.getElementById('trackingNumber').value = '';
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = 'none';
+    resultDiv.innerHTML = '';
+    document.getElementById('trackingNumber').focus();
+  }
+
   async function trackShipment() {
     const trackingNumber = document.getElementById('trackingNumber').value.trim();
     const result = document.getElementById('result');
     const btn = document.querySelector('.tracking-box button');
+    const btnText = document.getElementById('btnText');
 
     if (!trackingNumber) {
-      result.innerHTML = '⚠️ Please enter a tracking number.';
+      result.innerHTML = '<div style="color: #fecaca; text-align: center; padding: 20px;">⚠️ Please enter a tracking number</div>';
+      result.style.display = 'block';
       return;
     }
 
     btn.disabled = true;
-    btn.innerText = '⏳ Tracking...';
-    result.innerHTML = '⏳ Fetching live shipment data...';
+    btnText.innerHTML = '<span class="loading-spinner"></span>Tracking...';
+    result.style.display = 'none';
 
-    const API_URL = 'https://script.google.com/macros/s/AKfycbzcZnstcN4W0YoRtqd1KPR9A-B10LSS1SI4_O2-9qKj5whHrcLZRN4UV6F197KDeDQF/exec';
-	try {
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxhtmA11x4HJAOWPKjg9x2pe2S6-yJ1e62qcRKg4AEeGrE6spUb1Pw9nx5Cz_lfDyko/exec';
+    
+    try {
       const response = await fetch(`${API_URL}?tracking=${encodeURIComponent(trackingNumber)}`);
       const data = await response.json();
 
       if (data.error) {
-        result.innerHTML = '❌ Tracking number not found.';
+        result.innerHTML = `
+          <div class="result-card" style="text-align: center; padding: 40px; color: #ef4444;">
+            <div style="font-size: 48px; margin-bottom: 15px;">😕</div>
+            <h3 style="margin-bottom: 10px;">Tracking Not Found</h3>
+            <p style="color: #64748b;">We couldn't find any shipment with number <strong>${trackingNumber}</strong></p>
+          </div>
+        `;
+        result.style.display = 'block';
         btn.disabled = false;
-        btn.innerText = 'Track Shipment';
+        btnText.innerText = 'Track Shipment';
         return;
       }
 
-      const payment = data.payment || '';
-      const paymentColor = payment.toLowerCase().includes('un') ? 'red' : '#00ff99';
+      // Determine payment styling
+      const payment = (data.payment || '').toLowerCase();
+      let paymentClass = 'status-pending';
+      let paymentIcon = '⏳';
+      if (payment.includes('unpaid') || payment.includes('un paid')) {
+        paymentClass = 'status-unpaid';
+        paymentIcon = '❌';
+      } else if (payment.includes('paid') || payment.includes('complete')) {
+        paymentClass = 'status-paid';
+        paymentIcon = '✅';
+      }
 
-      let statusColor = '#9ac0cd'; // default color
-const status = data.status || '';
-if (status.includes('Delivered')) {
-    statusColor = '#00ff00'; // green
-} else if (status.includes('Clearance')) {
-    statusColor = '#ff0000'; // red
-} else if (status.includes('In-Transit-SL')) {
-    statusColor = '#FBCEB1'; // apricot
-}
-      result.innerHTML = `  
-        <table>
-		<tbody>
-			<tr>
-				<td style="text-align:right; padding-right:20px;">Shipper</td>
-				<td style="text-align:left;">${data.shipper}</td>
-			</tr>
-			<tr>
-				<td style="text-align:right; padding-right:20px;">Consignee</td>
-				<td style="text-align:left;">${data.consignee}</td>
-			</tr>
-			<tr>
-				<td style="text-align:right; padding-right:20px;">Warehouse</td>
-				<td style="text-align:left;">${data.warehouse}</td>
-			</tr>
-			<tr>
-				<td style="text-align:right; padding-right:20px;">Payment</td>
-				<td style="text-align:left; color:${paymentColor}; font-weight:600;">${payment}</td>
-			</tr>
-			<tr>
-				<td style="text-align:right; padding-right:20px;">Status</td>
-				<td style="text-align:left; color:${statusColor}; font-weight:600;">${data.status}</td>
-			</tr>
-			<tr>
-				<td style="text-align:right; padding-right:20px;">Remark</td>
-				<td style="text-align:left; color:red; font-weight:600;">${data.remark}</td>
-			</tr>
-		</tbody>
-		</table>
+      // Determine cargo status color, emoji and animation (Emoji Option 1)
+      const status = (data.status || '').toLowerCase();
+      let statusColor = '#64748b';
+      let statusDot = '⚪';
+      let statusIcon = '📋';  // Default processing icon
+      let statusBg = 'rgba(100, 116, 139, 0.2)';
+      
+      if (status.includes('delivered')) {
+        statusColor = '#10b981';
+        statusDot = '🟢';
+        statusIcon = '🏠';  // delivered
+        statusBg = 'rgba(16, 185, 129, 0.2)';
+		
+      } else if (status.includes('clearance')) {
+        statusColor = '#ef4444';
+        statusDot = '🔴';
+        statusIcon = '🛃';  // Customs/Documentation
+        statusBg = 'rgba(239, 68, 68, 0.2)';
+		
+      } else if (status.includes('in-transit-kw')) {
+        statusColor = '#f59e0b';
+        statusDot = '🟡';
+        statusIcon = '🚢';  // KW/Transit
+        statusBg = 'rgba(245, 158, 11, 0.2)';
+		
+      } else if (status.includes('warehouse') || status.includes('storage')) {
+        statusColor = '#3b82f6';
+        statusDot = '🔵';
+        statusIcon = '🏭';  // /Warehouse/Storage
+        statusBg = 'rgba(59, 130, 246, 0.2)';
+		
+      } else if (status.includes('in-transit-lk')) {
+        statusColor = '#8b5cf6';
+        statusDot = '🟣';
+        statusIcon = '🚛';  // LK/Transit
+        statusBg = 'rgba(139, 92, 246, 0.2)';
+      }
+
+      // Fix: Handle both spellings of delivery info
+      const deliveryInfo = data.deliveryInfo || data.deleveryInfo || 'N/A';
+
+      result.innerHTML = `
+        <div class="result-card">
+          <div class="result-header">
+            <div class="result-header-content">
+              <div>
+                <div class="bill-no-label">Bill Number</div>
+                <div class="bill-no-value">${data.billNo || trackingNumber}</div>
+              </div>
+              <div class="status-badge" style="background: ${statusBg}; color: ${statusColor};">
+                ${statusDot} ${data.status || 'Processing'}
+              </div>
+            </div>
+          </div>
+          
+          <div class="client-section">
+            <div class="client-row">
+              <div class="client-icon shipper-icon">👤</div>
+              <div class="client-info">
+                <div class="client-label">Shipper</div>
+                <div class="client-value">${data.shipper || 'N/A'}</div>
+              </div>
+            </div>
+            <div class="client-row">
+              <div class="client-icon consignee-icon">👨</div>
+              <div class="client-info">
+                <div class="client-label">Consignee</div>
+                <div class="client-value">${data.consignee || 'N/A'}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="details-grid">
+            <div class="detail-item">
+              <span class="detail-icon">📦</span>
+              <div class="detail-label">Total Units</div>
+              <div class="detail-value">${data.units || 'N/A'}</div>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">💳</span>
+              <div class="detail-label">Payment Status</div>
+              <div class="detail-value ${paymentClass}">
+                ${paymentIcon} ${data.payment || 'Pending'}
+              </div>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">🏭</span>
+              <div class="detail-label">Warehouse</div>
+              <div class="detail-value">${data?.warehouse ?? 'Unknown'} (${deliveryInfo})</div>
+            </div>
+            <div class="detail-item">
+              <span class="detail-icon">${statusIcon}</span>
+              <div class="detail-label">Cargo Status</div>
+              <div class="detail-value cargo-status" style="color: ${statusColor}">
+                <span class="status-dot" style="background: ${statusColor};"></span>
+                ${data.status || 'In Process'}
+              </div>
+            </div>
+          </div>
+
+          ${data.remark ? `
+          <div class="remark-section">
+            <div class="remark-label">📝 Important Note</div>
+            <div class="remark-value">${data.remark}</div>
+          </div>
+          ` : ''}
+
+          <div class="card-footer">
+            <button class="btn-secondary" onclick="newSearch()">🔍 New Search</button>
+            <button class="btn-primary" onclick="window.location.href='pickup.html'">📅 Book Appointment</button>
+          </div>
+        </div>
       `;
+      
+      result.style.display = 'block';
+      
     } catch (e) {
-      result.innerHTML = '❌ Unable to connect to tracking service.';
+      result.innerHTML = `
+        <div class="result-card" style="text-align: center; padding: 40px; color: #ef4444;">
+          <div style="font-size: 48px; margin-bottom: 15px;">⚠️</div>
+          <h3>Connection Error</h3>
+          <p style="color: #64748b; margin-top: 10px;">Unable to connect to tracking service. Please try again later.</p>
+        </div>
+      `;
+      result.style.display = 'block';
     } finally {
       btn.disabled = false;
-      btn.innerText = 'Track Shipment';
+      btnText.innerText = 'Track Shipment';
     }
   }
 </script>
