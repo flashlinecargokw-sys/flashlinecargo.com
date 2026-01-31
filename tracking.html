@@ -1424,7 +1424,11 @@
           submitBtn.disabled = false;
           submitBtn.textContent = originalText;
           
-        
+          // AUTO-CLOSE after 3 seconds (silent)
+			autoCloseTimeout = setTimeout(function() {
+			closeSuccessPopup();
+			}, 10000);
+			}
           
         } else {
           throw new Error('Submission failed');
