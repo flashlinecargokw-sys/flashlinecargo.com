@@ -84,10 +84,22 @@
       font-weight: 800;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      background: linear-gradient(90deg, #ffcc00, #ff9900);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+	  
+     /* Shine Animation Setup */
+		background: linear-gradient(90deg, #ffcc00, #ffffff 50%, #ffcc00, #ff9900);
+		background-size: 200% auto;  /* Makes gradient wider than text */
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+  
+	/* Only this animation */
+		animation: shine 3s linear infinite;
+	}
+
+/* Shine Keyframes */
+@keyframes shine {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
 
    nav a {
       color: #eaeaea;
