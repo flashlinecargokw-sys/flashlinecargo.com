@@ -1199,7 +1199,7 @@
         statusBg = 'rgba(139, 92, 246, 0.2)';
       }
 
-      // Check if booking is available (only for Warehouse/Storage status)
+      // Check if booking is available (only for Warehouse/Paid Ok)
       const isWarehouse = status.includes('warehouse') || payment.includes('paid ok');
       const bookButtonHtml = isWarehouse 
         ? `<button onclick="openModal()" class="btn-primary" style="background: linear-gradient(135deg, #ffcc00, #ff9900); color: #000;">📅 Book Appointment</button>`
