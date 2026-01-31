@@ -786,6 +786,7 @@
     .modal-body {
       padding: 30px;
       position: relative;
+      min-height: 400px;
     }
 
     .form-row {
@@ -866,7 +867,7 @@
       box-shadow: 0 10px 25px rgba(255, 153, 0, 0.4);
     }
 
-    /* Success Popup Styles - Like reference image */
+    /* NEW SUCCESS POPUP STYLES - Like reference image */
     .success-popup {
       display: none;
       position: absolute;
@@ -876,55 +877,138 @@
       height: 100%;
       background: rgba(255, 255, 255, 0.98);
       z-index: 100;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       border-radius: 20px;
       animation: fadeIn 0.3s ease;
+    }
+
+    .success-modal {
       text-align: center;
-      padding: 40px;
+      padding: 40px 30px;
+      max-width: 350px;
+      width: 90%;
     }
 
-    .success-icon {
-      font-size: 60px;
+    /* Green Checkmark Animation */
+    .success-checkmark {
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .checkmark-circle {
+      width: 80px;
+      height: 80px;
+      background: #22c55e;
+      border-radius: 50%;
+      position: relative;
+      animation: scaleUp 0.4s ease;
+      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+    }
+
+    .checkmark-stem {
+      position: absolute;
+      width: 6px;
+      height: 30px;
+      background: white;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      margin-left: 2px;
+      margin-top: -4px;
+      border-radius: 3px;
+      animation: drawStem 0.3s ease 0.2s forwards;
+      transform-origin: bottom;
+      height: 0;
+    }
+
+    .checkmark-kick {
+      position: absolute;
+      width: 18px;
+      height: 6px;
+      background: white;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      margin-left: -8px;
+      margin-top: 8px;
+      border-radius: 3px;
+      animation: drawKick 0.2s ease 0.5s forwards;
+      transform-origin: right;
+      width: 0;
+    }
+
+    .success-heading {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1f2937;
       margin-bottom: 20px;
+      line-height: 1.4;
+      font-family: 'Poppins', sans-serif;
     }
 
-    .success-title {
-      font-size: 28px;
-      font-weight: 700;
-      color: #000;
-      margin-bottom: 10px;
-    }
-
-    .success-message-text {
-      font-size: 16px;
-      color: #64748b;
+    .success-subtext {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.6;
       margin-bottom: 30px;
+      font-weight: 400;
     }
 
-    .success-close-btn {
-      background: #1e3a8a;
+    .success-close-blue {
+      width: 100%;
+      padding: 14px 24px;
+      background: #3b82f6;
       color: white;
       border: none;
-      padding: 14px 40px;
       border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.2s;
+      font-family: 'Poppins', sans-serif;
     }
 
-    .success-close-btn:hover {
-      background: #1e40af;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(30, 58, 138, 0.3);
+    .success-close-blue:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .success-close-blue:active {
+      transform: translateY(0);
     }
 
     @media (max-width: 640px) {
       .form-row {
         grid-template-columns: 1fr;
       }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes scaleUp {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes drawStem {
+      to { height: 30px; }
+    }
+
+    @keyframes drawKick {
+      to { width: 18px; }
     }
 
     /* RESPONSIVE */
@@ -1323,7 +1407,16 @@
         });
         
         if (response.ok) {
-          // Show success popup (like the image you shared)
+          // Get form values
+          const name = document.getElementById('fullName').value || 'Customer';
+          const phone = document.getElementById('phone').value || '';
+          const firstName = name.split(' ')[0];
+          
+          // Update popup content
+          document.getElementById('displayName').textContent = firstName;
+          document.getElementById('displayPhone').textContent = phone;
+          
+          // Show success popup
           document.getElementById('bookingForm').style.display = 'none';
           document.getElementById('successPopup').style.display = 'flex';
           
@@ -1331,7 +1424,7 @@
           submitBtn.disabled = false;
           submitBtn.textContent = originalText;
           
-          // AUTO-CLOSE after 3 seconds (3000ms)
+          // AUTO-CLOSE after 3 seconds (silent)
           autoCloseTimeout = setTimeout(function() {
             closeSuccessPopup();
           }, 3000);
@@ -1452,27 +1545,27 @@
         <button type="submit" class="submit-btn">Confirm Booking</button>
       </form>
 
-      <!-- Success Popup Overlay -->
-<div id="successPopup" class="success-popup">
-  <div class="success-modal">
-    <div class="success-checkmark">
-      <div class="checkmark-circle">
-        <div class="checkmark-stem"></div>
-        <div class="checkmark-kick"></div>
+      <!-- Success Popup Overlay - New Style -->
+      <div id="successPopup" class="success-popup">
+        <div class="success-modal">
+          <div class="success-checkmark">
+            <div class="checkmark-circle">
+              <div class="checkmark-stem"></div>
+              <div class="checkmark-kick"></div>
+            </div>
+          </div>
+          
+          <h2 class="success-heading">Thank you,<br>you have successfully<br>completed your request</h2>
+          
+          <p class="success-subtext">
+            Dear <strong id="displayName">Customer</strong>, our agent will contact you at<br>
+            <strong id="displayPhone" style="color: #1e3a8a;">your mobile</strong> within 24 hours to confirm<br>
+            your booking details.
+          </p>
+          
+          <button class="success-close-blue" onclick="closeSuccessPopup()">Close</button>
+        </div>
       </div>
-    </div>
-    
-    <h2 class="success-heading">Thank you,<br>you have successfully<br>completed your request</h2>
-    
-    <p class="success-subtext">
-      Dear <strong id="displayName">Customer</strong>, our agent will contact you at<br>
-      <strong id="displayPhone" style="color: #1e3a8a;">your mobile</strong> within 24 hours to confirm<br>
-      your booking details.
-    </p>
-    
-    <button class="success-close-blue" onclick="closeSuccessPopup()">Close</button>
-  </div>
-</div>
     </div>
   </div>
 </div>
