@@ -173,7 +173,6 @@
       -webkit-background-clip: text; 
       -webkit-text-fill-color: transparent;
       text-shadow: 0 10px 30px rgba(255,204,0,0.3);
-      /* Chain: fadeUp (0.8s, delay 0.2s), gradient (starts 0.2s), floatY (starts after fadeUp completes at 1.0s) */
       animation: 
         fadeUp 0.8s ease 0.2s forwards, 
         gradient 3s ease 0.2s infinite, 
@@ -192,7 +191,6 @@
       color: rgba(255,255,255,0.7); 
       margin-bottom: 40px;
       font-weight: 300;
-      /* fadeUp starts at 0.4s (matches fade-delay-2), floatY starts at 1.2s */
       animation: 
         fadeUp 0.8s ease 0.4s forwards, 
         floatY 4s ease-in-out 1.2s infinite;
@@ -663,6 +661,19 @@
       background: rgba(102, 126, 234, 0.05);
     }
 
+    /* Disabled Button State */
+    .btn-disabled {
+      background: #cbd5e1 !important;
+      color: #64748b !important;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
     /* Loading Animation */
     .loading-spinner {
       display: inline-block;
@@ -700,6 +711,165 @@
       text-shadow: 0 0 10px rgba(255,204,0,0.5);
     }
 
+    /* Booking Modal Styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-container {
+      background: #ffffff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      animation: slideUp 0.3s ease;
+      color: #1e293b;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      color: white;
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .modal-body {
+      padding: 30px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #374151;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .optional {
+      color: #9ca3af;
+      font-weight: normal;
+      font-size: 12px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: all 0.3s;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .form-group input[readonly] {
+      background: rgba(255, 204, 0, 0.1);
+      border-color: #ffcc00;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #ffcc00 0%, #ff9900 100%);
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(255, 153, 0, 0.4);
+    }
+
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* RESPONSIVE */
     @media (max-width: 900px){
       header{ flex-direction: column; padding: 15px 20px; }
@@ -718,7 +888,7 @@
         flex-direction: column;
       }
       
-      .btn-primary, .btn-secondary {
+      .btn-primary, .btn-secondary, .btn-disabled {
         width: 100%;
         text-align: center;
       }
@@ -770,6 +940,13 @@
 </footer>
 
 <script>
+  // Global variable to store current tracking data
+  let currentTrackingData = {
+    trackingNumber: '',
+    warehouse: '',
+    status: ''
+  };
+
   // Create particles
   for(let i=0; i<20; i++) {
     const p = document.createElement('div');
@@ -793,6 +970,8 @@
     resultDiv.style.display = 'none';
     resultDiv.innerHTML = '';
     document.getElementById('trackingNumber').focus();
+    // Reset tracking data
+    currentTrackingData = { trackingNumber: '', warehouse: '', status: '' };
   }
 
   async function trackShipment() {
@@ -831,6 +1010,13 @@
         return;
       }
 
+      // Store tracking data globally for booking modal (NOW INCLUDES TRACKING NUMBER)
+      currentTrackingData = {
+        trackingNumber: trackingNumber,
+        warehouse: data.warehouse || 'Unknown',
+        status: data.status || ''
+      };
+
       // Determine payment styling
       const payment = (data.payment || '').toLowerCase();
       let paymentClass = 'status-pending';
@@ -843,43 +1029,45 @@
         paymentIcon = '✅';
       }
 
-      // Determine cargo status color, emoji and animation (Emoji Option 1)
+      // Determine cargo status color, emoji and animation
       const status = (data.status || '').toLowerCase();
       let statusColor = '#64748b';
       let statusDot = '⚪';
-      let statusIcon = '📋';  // Default processing icon
+      let statusIcon = '📋';
       let statusBg = 'rgba(100, 116, 139, 0.2)';
       
       if (status.includes('delivered')) {
         statusColor = '#10b981';
         statusDot = '🟢';
-        statusIcon = '🏠';  // delivered
+        statusIcon = '🏠';
         statusBg = 'rgba(16, 185, 129, 0.2)';
-		
       } else if (status.includes('clearance')) {
         statusColor = '#ef4444';
         statusDot = '🔴';
-        statusIcon = '🛃';  // Customs/Documentation
+        statusIcon = '🛃';
         statusBg = 'rgba(239, 68, 68, 0.2)';
-		
       } else if (status.includes('in-transit-kw')) {
         statusColor = '#f59e0b';
         statusDot = '🟡';
-        statusIcon = '🚢';  // KW/Transit
+        statusIcon = '🚢';
         statusBg = 'rgba(245, 158, 11, 0.2)';
-		
       } else if (status.includes('warehouse') || status.includes('storage')) {
         statusColor = '#3b82f6';
         statusDot = '🔵';
-        statusIcon = '🏭';  // /Warehouse/Storage
+        statusIcon = '🏭';
         statusBg = 'rgba(59, 130, 246, 0.2)';
-		
       } else if (status.includes('in-transit-lk')) {
         statusColor = '#8b5cf6';
         statusDot = '🟣';
-        statusIcon = '🚛';  // LK/Transit
+        statusIcon = '🚛';
         statusBg = 'rgba(139, 92, 246, 0.2)';
       }
+
+      // Check if booking is available (only for Warehouse/Storage status)
+      const isWarehouse = status.includes('warehouse') || status.includes('storage');
+      const bookButtonHtml = isWarehouse 
+        ? `<button onclick="openModal()" class="btn-primary" style="background: linear-gradient(135deg, #ffcc00, #ff9900); color: #000;">📅 Book Appointment</button>`
+        : `<button class="btn-disabled" disabled title="Booking available only for Warehouse status">📅 Book Appointment (Not Available)</button>`;
 
       // Fix: Handle both spellings of delivery info
       const deliveryInfo = data.deliveryInfo || data.deleveryInfo || 'N/A';
@@ -952,7 +1140,7 @@
 
           <div class="card-footer">
             <button class="btn-secondary" onclick="newSearch()">🔍 New Search</button>
-			<button onclick="openModal()" class="book-appointment-btn">📅 Book Appointment</button>
+            ${bookButtonHtml}
           </div>
         </div>
       `;
@@ -973,6 +1161,63 @@
       btnText.innerText = 'Track Shipment';
     }
   }
+
+  // Modal Functions
+  function openModal() {
+    const modal = document.getElementById('appointmentModal');
+    const form = document.getElementById('bookingForm');
+    const warehouseInput = document.getElementById('warehouseDisplay');
+    const trackingIdInput = document.getElementById('trackingId');
+    
+    // Set warehouse value in form
+    warehouseInput.value = currentTrackingData.warehouse || 'Unknown';
+    
+    // AUTO-FILL TRACKING NUMBER
+    trackingIdInput.value = currentTrackingData.trackingNumber || '';
+    
+    // Determine email based on warehouse location
+    const warehouse = (currentTrackingData.warehouse || '').toLowerCase().trim();
+    let targetEmail = "flashlinecargokw@gmail.com"; // default
+    
+    // Check warehouse and set appropriate email
+    if (['kandy', 'cmb', 'wellampity', 'wellamptiya', 'colombo'].some(w => warehouse.includes(w))) {
+      targetEmail = "kandy@gmail.com";
+    } else if (['kurunegala', 'dambulla'].some(w => warehouse.includes(w))) {
+      targetEmail = "kurunegala@gmail.com";
+    }
+    
+    // Update form action with selected email
+    form.action = `https://formsubmit.co/${targetEmail}`;
+    
+    // Show modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('bookingDate').setAttribute('min', today);
+  }
+
+  function closeModal() {
+    document.getElementById('appointmentModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+    document.getElementById('bookingForm').reset();
+  }
+
+  // Close when clicking outside
+  document.addEventListener('click', function(e) {
+    const modal = document.getElementById('appointmentModal');
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('appointmentModal').classList.contains('active')) {
+      closeModal();
+    }
+  });
 </script>
 
 <script>
@@ -996,9 +1241,6 @@
   });
 </script>
 
-
-<!-- Add this inside your tracking.html <body>, ideally at the end before </body> -->
-
 <!-- Book Appointment Modal -->
 <div id="appointmentModal" class="modal-overlay">
   <div class="modal-container">
@@ -1008,11 +1250,17 @@
     </div>
     
     <div class="modal-body">
-      <form id="bookingForm" onsubmit="handleBooking(event)">
+      <form id="bookingForm" action="https://formsubmit.co/flashlinecargokw@gmail.com" method="POST">
+        <!-- FormSubmit Configuration -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="New Appointment Booking - Flash Line Cargo">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://yourwebsite.com/tracking.html">
+        
         <div class="form-row">
           <div class="form-group">
             <label for="fullName">Full Name *</label>
-            <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+            <input type="text" id="fullName" name="name" required placeholder="Enter your full name">
           </div>
           <div class="form-group">
             <label for="phone">Phone Number *</label>
@@ -1021,35 +1269,41 @@
         </div>
 
         <div class="form-group">
-          <label for="email">Email Address (Optional)</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email address">
+          <label for="email">Email Address <span class="optional">(Optional)</span></label>
+          <input type="email" id="email" name="email" placeholder="Enter your email address (optional)">
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label for="serviceType">Service Type *</label>
-            <select id="serviceType" name="serviceType" required>
+            <select id="serviceType" name="service" required>
               <option value="">Select a service</option>
-              <option value="cargo-tracking">Cargo Tracking</option>
-              <option value="pickup">Schedule Pickup</option>
-              <option value="delivery">Delivery Booking</option>
-              <option value="consultation">Logistics Consultation</option>
-              <option value="other">Other</option>
+              <option value="Cargo Pickup">Cargo Pickup</option>
+              <option value="Delivery Schedule">Delivery Schedule</option>
+              <option value="Warehouse Visit">Warehouse Visit</option>
+              <option value="Documentation">Documentation</option>
+              <option value="Other">Other</option>
             </select>
           </div>
           <div class="form-group">
             <label for="bookingDate">Preferred Date *</label>
-            <input type="date" id="bookingDate" name="bookingDate" required>
+            <input type="date" id="bookingDate" name="date" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="trackingId">Tracking Number</label>
+            <input type="text" id="trackingId" name="tracking_id" readonly placeholder="Auto-filled from search">
+          </div>
+          <div class="form-group">
+            <label for="warehouseDisplay">Warehouse Location</label>
+            <input type="text" id="warehouseDisplay" name="warehouse_location" readonly>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="trackingId">Tracking ID (Optional)</label>
-          <input type="text" id="trackingId" name="trackingId" placeholder="Enter if related to existing shipment">
-        </div>
-
-        <div class="form-group">
-          <label for="message">Additional Message</label>
+          <label for="message">Additional Message <span class="optional">(Optional)</span></label>
           <textarea id="message" name="message" rows="3" placeholder="Tell us more about your requirements..."></textarea>
         </div>
 
@@ -1059,320 +1313,5 @@
   </div>
 </div>
 
-<style>
-/* Modal Overlay */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(5px);
-  z-index: 1000;
-  animation: fadeIn 0.3s ease;
-}
-
-.modal-overlay.active {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-
-/* Modal Container */
-.modal-container {
-  background: #ffffff;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 500px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: slideUp 0.3s ease;
-  position: relative;
-}
-
-/* Header */
-.modal-header {
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-  color: white;
-  padding: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.modal-header h2 {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 600;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 28px;
-  cursor: pointer;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: background 0.2s;
-}
-
-.close-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* Body */
-.modal-body {
-  padding: 24px;
-}
-
-/* Form Styling */
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 6px;
-  color: #374151;
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 10px 12px;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: border-color 0.2s;
-  font-family: inherit;
-  box-sizing: border-box;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #3b82f6;
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-/* Submit Button */
-.submit-btn {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
-}
-
-.submit-btn:active {
-  transform: translateY(0);
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Mobile Responsive */
-@media (max-width: 640px) {
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-  
-  .modal-container {
-    margin: 10px;
-    max-height: 95vh;
-  }
-  
-  .modal-header h2 {
-    font-size: 20px;
-  }
-}
-
-/* Success Message */
-.success-message {
-  text-align: center;
-  padding: 40px 20px;
-  color: #059669;
-}
-
-.success-message h3 {
-  color: #059669;
-  margin-bottom: 10px;
-  font-size: 24px;
-}
-
-.success-message p {
-  color: #6b7280;
-  margin: 0;
-}
-</style>
-
-<script>
-// Open Modal Function
-function openModal() {
-  document.getElementById('appointmentModal').classList.add('active');
-  document.body.style.overflow = 'hidden'; // Prevent background scrolling
-  
-  // Set minimum date to today
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('bookingDate').setAttribute('min', today);
-}
-
-// Close Modal Function
-function closeModal() {
-  document.getElementById('appointmentModal').classList.remove('active');
-  document.body.style.overflow = 'auto';
-}
-
-// Close when clicking outside
-document.getElementById('appointmentModal').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeModal();
-  }
-});
-
-// Close on Escape key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape' && document.getElementById('appointmentModal').classList.contains('active')) {
-    closeModal();
-  }
-});
-
-// Handle Form Submission
-function handleBooking(e) {
-  e.preventDefault();
-  
-  // Get form data
-  const formData = new FormData(e.target);
-  const data = Object.fromEntries(formData);
-  
-  // Here you would typically send to server
-  console.log('Booking Data:', data);
-  
-  // Show success message
-  const modalBody = document.querySelector('.modal-body');
-  modalBody.innerHTML = `
-    <div class="success-message">
-      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 16px;">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-      </svg>
-      <h3>Booking Confirmed!</h3>
-      <p>Thank you, ${data.fullName}. We'll contact you shortly at ${data.phone} to confirm your appointment.</p>
-      <button onclick="closeModal(); setTimeout(() => resetForm(), 300);" class="submit-btn" style="margin-top: 20px; width: auto; padding: 10px 30px;">Close</button>
-    </div>
-  `;
-}
-
-// Reset Form Function
-function resetForm() {
-  const modalBody = document.querySelector('.modal-body');
-  modalBody.innerHTML = `
-    <form id="bookingForm" onsubmit="handleBooking(event)">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="fullName">Full Name *</label>
-          <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone Number *</label>
-          <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email Address (Optional)</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email address">
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="serviceType">Service Type *</label>
-          <select id="serviceType" name="serviceType" required>
-            <option value="">Select a service</option>
-            <option value="cargo-tracking">Cargo Tracking</option>
-            <option value="pickup">Schedule Pickup</option>
-            <option value="delivery">Delivery Booking</option>
-            <option value="consultation">Logistics Consultation</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="bookingDate">Preferred Date *</label>
-          <input type="date" id="bookingDate" name="bookingDate" required>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="trackingId">Tracking ID (Optional)</label>
-        <input type="text" id="trackingId" name="trackingId" placeholder="Enter if related to existing shipment">
-      </div>
-
-      <div class="form-group">
-        <label for="message">Additional Message</label>
-        <textarea id="message" name="message" rows="3" placeholder="Tell us more about your requirements..."></textarea>
-      </div>
-
-      <button type="submit" class="submit-btn">Confirm Booking</button>
-    </form>
-  `;
-  
-  // Re-apply date restriction
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('bookingDate').setAttribute('min', today);
-}
-</script>
 </body>
 </html>
