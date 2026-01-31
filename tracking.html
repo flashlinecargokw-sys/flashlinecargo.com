@@ -6,7 +6,7 @@
   <title>Track Shipment | Flash Line Cargo Service</title>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@900&display=swap');
 
     * {
       margin: 0;
@@ -48,12 +48,6 @@
       10% { opacity: 1; }
       90% { opacity: 1; }
       100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
-    }
-
-    /* Floating animation for hero text */
-    @keyframes floatY {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
     }
 
     /* HEADER */
@@ -116,18 +110,26 @@
 
     header h1 {
       font-family: 'Montserrat', sans-serif;
-      font-size: 32px; 
-      font-weight: 800; 
-      letter-spacing: 2px; 
+      font-size: 35px !important;
+      font-weight: 800;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #ffcc00 0%, #ff9900 50%, #ffcc00 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text; 
-      -webkit-text-fill-color: transparent;
-      animation: shine 3s linear infinite;
-    }
+	  
+       /* Shine Animation Setup */
+	background: linear-gradient(90deg, #ffcc00, #ffffff 50%, #ffcc00, #ff9900);
+	background-size: 200% auto;  /* Makes gradient wider than text */
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+  
+		/* Only this animation */
+	animation: shine 3s linear infinite;
+}
 
-    @keyframes shine { to { background-position: 200% center; } }
+		/* Shine Keyframes */
+	@keyframes shine {
+	0% { background-position: 0% center; }
+	100% { background-position: 200% center; }
+}
 
     nav a {
       color: #eaeaea; 
@@ -153,9 +155,9 @@
 
     nav a:hover::after { width: 100%; }
 
-    /* TRACKING HERO */
+    /* TRACKING HERO - Updated with about.html font styles */
     .tracking-hero { 
-      padding: 100px 40px 85px; 
+      padding: 120px 40px 85px; 
       text-align: center; 
       position: relative; 
       z-index: 1;
@@ -164,42 +166,28 @@
       background-attachment: fixed;
     }
 
-    /* Heading: fade up → gradient shimmer → float */
-    .tracking-hero h2 { 
-      font-size: 48px; 
-      margin-bottom: 15px; 
-      background: linear-gradient(135deg, #ffcc00, #ffffff, #ffcc00);
-      background-size: 200% auto;
-      -webkit-background-clip: text; 
+    /* Heading: about.html style */
+    .tracking-hero h2 {
+      font-size: 50px;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #ffcc00, #ffffff);
+      -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 10px 30px rgba(255,204,0,0.3);
-      animation: 
-        fadeUp 0.8s ease 0.2s forwards, 
-        gradient 3s ease 0.2s infinite, 
-        floatY 4s ease-in-out 1.0s infinite;
     }
 
-    @keyframes gradient { 
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Subtitle: fade up then float (slightly offset timing) */
-    .tracking-hero p { 
-      font-size: 18px; 
-      color: rgba(255,255,255,0.7); 
-      margin-bottom: 40px;
-      font-weight: 300;
-      animation: 
-        fadeUp 0.8s ease 0.4s forwards, 
-        floatY 4s ease-in-out 1.2s infinite;
+    /* Subtitle: about.html style */
+    .tracking-hero p {
+      font-size: 22px;
+      max-width: 900px;
+      margin: auto;
+      line-height: 1.7;
+      color: #ddd;
     }
 
     /* Glassmorphism Tracking Box */
     .tracking-box {
       max-width: 650px; 
-      margin: auto; 
+      margin: 40px auto 0; 
       background: rgba(255,255,255,0.05); 
       backdrop-filter: blur(30px);
       border: 1px solid rgba(255,255,255,0.1);
@@ -1018,7 +1006,11 @@
       header h1{ font-size: 24px; }
       nav{ margin-top: 15px; flex-wrap: wrap; gap: 10px; }
       nav a{ margin: 0; font-size: 13px; }
-      .tracking-hero h2{ font-size: 32px; }
+      
+      /* Mobile font adjustments from about.html */
+      .tracking-hero h2{ font-size: 32px !important; }
+      .tracking-hero p{ font-size: 16px; padding: 0 10px; }
+      
       .tracking-box{ padding: 30px 25px; }
       
       .details-grid { grid-template-columns: 1fr; }
@@ -1058,8 +1050,8 @@
 </header>
 
 <section class="tracking-hero page-hero">
-  <h2>Track Your Shipment</h2>
-  <p>Enter your tracking number below to get shipment status</p>
+  <h2 class="fade-up fade-delay-1">Track Your Shipment</h2>
+  <p class="fade-up fade-delay-2">Enter your tracking number below to get shipment status</p>
 
   <div class="tracking-box">
     <input type="text" id="trackingNumber" placeholder="Enter Tracking Number (e.g. 123456)">
@@ -1424,7 +1416,7 @@
           submitBtn.disabled = false;
           submitBtn.textContent = originalText;
           
-          // AUTO-CLOSE after 3 seconds (silent)
+          // AUTO-CLOSE after 10 seconds (silent)
 			autoCloseTimeout = setTimeout(function() {
 			closeSuccessPopup();
 			}, 10000);
