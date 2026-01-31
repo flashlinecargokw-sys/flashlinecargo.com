@@ -1169,6 +1169,12 @@
     const warehouseInput = document.getElementById('warehouseDisplay');
     const trackingIdInput = document.getElementById('trackingId');
     
+    // Reset form and remove any existing success messages
+    form.reset();
+    form.style.display = 'block';
+    const existingSuccess = modal.querySelector('.success-message');
+    if (existingSuccess) existingSuccess.remove();
+    
     // Set warehouse value in form
     warehouseInput.value = currentTrackingData.warehouse || 'Unknown';
     
@@ -1203,6 +1209,77 @@
     document.body.style.overflow = 'auto';
     document.getElementById('bookingForm').reset();
   }
+
+  // Handle form submission via AJAX
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('bookingForm');
+    const modalBody = document.querySelector('.modal-body');
+    
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault(); // Prevent default navigation
+      
+      const submitBtn = form.querySelector('.submit-btn');
+      const originalText = submitBtn.textContent;
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="loading-spinner" style="border-color: rgba(0,0,0,.3); border-top-color: #000; margin-right: 8px;"></span>Sending...';
+      
+      try {
+        const formData = new FormData(form);
+        const action = form.action;
+        
+        const response = await fetch(action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          // Hide form and show success message
+          form.style.display = 'none';
+          
+          const successDiv = document.createElement('div');
+          successDiv.className = 'success-message';
+          successDiv.style.cssText = 'text-align: center; padding: 40px 20px; animation: fadeUp 0.5s ease;';
+          successDiv.innerHTML = `
+            <div style="font-size: 64px; margin-bottom: 20px;">✅</div>
+            <h3 style="color: #10b981; font-size: 24px; margin-bottom: 10px; font-weight: 700;">Booking Confirmed!</h3>
+            <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin-bottom: 25px;">
+              Your appointment request has been sent successfully.<br>
+              We will contact you soon to confirm your booking.
+            </p>
+            <button onclick="closeModal()" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 12px 30px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+              Close Window
+            </button>
+          `;
+          
+          modalBody.appendChild(successDiv);
+          
+          // Auto-close modal after 3 seconds
+          setTimeout(() => {
+            closeModal();
+            // Remove success message after modal closes so it's fresh next time
+            setTimeout(() => {
+              if (successDiv.parentNode) successDiv.remove();
+              form.style.display = 'block';
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalText;
+            }, 300);
+          }, 3000);
+          
+        } else {
+          throw new Error('Submission failed');
+        }
+      } catch (error) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        alert('Failed to send booking request. Please try again or contact us directly.');
+      }
+    });
+  });
 
   // Close when clicking outside
   document.addEventListener('click', function(e) {
@@ -1311,13 +1388,6 @@
     </div>
   </div>
 </div>
-<!-- Thank You Popup -->
-<div id="thankYouPopup">
-  <div class="popup-content">
-    <h2>Thank You!</h2>
-    <p>Your submission has been received.</p>
-    <button onclick="closePopup()">Close</button>
-  </div>
 </div>
 </body>
 </html>
