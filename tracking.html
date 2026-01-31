@@ -742,6 +742,7 @@
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
       animation: slideUp 0.3s ease;
       color: #1e293b;
+      position: relative;
     }
 
     .modal-header {
@@ -784,6 +785,7 @@
 
     .modal-body {
       padding: 30px;
+      position: relative;
     }
 
     .form-row {
@@ -862,6 +864,61 @@
     .submit-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 25px rgba(255, 153, 0, 0.4);
+    }
+
+    /* Success Popup Styles - Like reference image */
+    .success-popup {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.98);
+      z-index: 100;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+      animation: fadeIn 0.3s ease;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .success-icon {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+
+    .success-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 10px;
+    }
+
+    .success-message-text {
+      font-size: 16px;
+      color: #64748b;
+      margin-bottom: 30px;
+    }
+
+    .success-close-btn {
+      background: #1e3a8a;
+      color: white;
+      border: none;
+      padding: 14px 40px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .success-close-btn:hover {
+      background: #1e40af;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(30, 58, 138, 0.3);
     }
 
     @media (max-width: 640px) {
@@ -946,6 +1003,9 @@
     warehouse: '',
     status: ''
   };
+
+  // Variable to store the auto-close timeout
+  let autoCloseTimeout;
 
   // Create particles
   for(let i=0; i<20; i++) {
@@ -1169,11 +1229,15 @@
     const warehouseInput = document.getElementById('warehouseDisplay');
     const trackingIdInput = document.getElementById('trackingId');
     
-    // Reset form and remove any existing success messages
+    // Clear any existing auto-close timeout when opening modal
+    if (autoCloseTimeout) {
+      clearTimeout(autoCloseTimeout);
+    }
+    
+    // Reset form and hide success popup
     form.reset();
     form.style.display = 'block';
-    const existingSuccess = modal.querySelector('.success-message');
-    if (existingSuccess) existingSuccess.remove();
+    document.getElementById('successPopup').style.display = 'none';
     
     // Set warehouse value in form
     warehouseInput.value = currentTrackingData.warehouse || 'Unknown';
@@ -1205,15 +1269,36 @@
   }
 
   function closeModal() {
+    // Clear auto-close timeout if user closes manually
+    if (autoCloseTimeout) {
+      clearTimeout(autoCloseTimeout);
+      autoCloseTimeout = null;
+    }
+    
     document.getElementById('appointmentModal').classList.remove('active');
     document.body.style.overflow = 'auto';
     document.getElementById('bookingForm').reset();
+    // Hide success popup when closing modal completely
+    document.getElementById('successPopup').style.display = 'none';
+    document.getElementById('bookingForm').style.display = 'block';
+  }
+
+  function closeSuccessPopup() {
+    // Clear the auto-close timeout if user clicks close manually
+    if (autoCloseTimeout) {
+      clearTimeout(autoCloseTimeout);
+      autoCloseTimeout = null;
+    }
+    
+    // Close both the success popup and the main modal
+    document.getElementById('successPopup').style.display = 'none';
+    document.getElementById('bookingForm').style.display = 'block';
+    closeModal();
   }
 
   // Handle form submission via AJAX
   document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('bookingForm');
-    const modalBody = document.querySelector('.modal-body');
     
     form.addEventListener('submit', async function(e) {
       e.preventDefault(); // Prevent default navigation
@@ -1238,36 +1323,17 @@
         });
         
         if (response.ok) {
-          // Hide form and show success message
-          form.style.display = 'none';
+          // Show success popup (like the image you shared)
+          document.getElementById('bookingForm').style.display = 'none';
+          document.getElementById('successPopup').style.display = 'flex';
           
-          const successDiv = document.createElement('div');
-          successDiv.className = 'success-message';
-          successDiv.style.cssText = 'text-align: center; padding: 40px 20px; animation: fadeUp 0.5s ease;';
-          successDiv.innerHTML = `
-            <div style="font-size: 64px; margin-bottom: 20px;">✅</div>
-            <h3 style="color: #10b981; font-size: 24px; margin-bottom: 10px; font-weight: 700;">Booking Confirmed!</h3>
-            <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin-bottom: 25px;">
-              Your appointment request has been sent successfully.<br>
-              We will contact you soon to confirm your booking.
-            </p>
-            <button onclick="closeModal()" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 12px 30px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
-              Close Window
-            </button>
-          `;
+          // Reset button
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
           
-          modalBody.appendChild(successDiv);
-          
-          // Auto-close modal after 3 seconds
-          setTimeout(() => {
-            closeModal();
-            // Remove success message after modal closes so it's fresh next time
-            setTimeout(() => {
-              if (successDiv.parentNode) successDiv.remove();
-              form.style.display = 'block';
-              submitBtn.disabled = false;
-              submitBtn.textContent = originalText;
-            }, 300);
+          // AUTO-CLOSE after 3 seconds (3000ms)
+          autoCloseTimeout = setTimeout(function() {
+            closeSuccessPopup();
           }, 3000);
           
         } else {
@@ -1327,7 +1393,7 @@
     </div>
     
     <div class="modal-body">
-    <!--  <form id="bookingForm" action="https://formsubmit.co/flashlinecargokw@gmail.com" method="POST">
+      <form id="bookingForm" action="https://formsubmit.co/flashlinecargokw@gmail.com" method="POST">
         <!-- FormSubmit Configuration -->
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_subject" value="New Appointment Booking - Flash Line Cargo">
@@ -1385,9 +1451,31 @@
 
         <button type="submit" class="submit-btn">Confirm Booking</button>
       </form>
+
+      <!-- Success Popup Overlay -->
+<div id="successPopup" class="success-popup">
+  <div class="success-modal">
+    <div class="success-checkmark">
+      <div class="checkmark-circle">
+        <div class="checkmark-stem"></div>
+        <div class="checkmark-kick"></div>
+      </div>
+    </div>
+    
+    <h2 class="success-heading">Thank you,<br>you have successfully<br>completed your request</h2>
+    
+    <p class="success-subtext">
+      Dear <strong id="displayName">Customer</strong>, our agent will contact you at<br>
+      <strong id="displayPhone" style="color: #1e3a8a;">your mobile</strong> within 24 hours to confirm<br>
+      your booking details.
+    </p>
+    
+    <button class="success-close-blue" onclick="closeSuccessPopup()">Close</button>
+  </div>
+</div>
     </div>
   </div>
 </div>
-</div>
+
 </body>
 </html>
