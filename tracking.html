@@ -1426,8 +1426,8 @@
           
           // AUTO-CLOSE after 3 seconds (silent)
           autoCloseTimeout = setTimeout(function() {
-            closeSuccessPopup();
-          }, 10000);
+          //  closeSuccessPopup();
+          }, 3000);
           
         } else {
           throw new Error('Submission failed');
