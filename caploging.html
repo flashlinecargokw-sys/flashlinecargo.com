@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login</title>
+  <title>Login - Flash Line Cargo</title>
   <style>
     body {
       font-family: Arial, Helvetica, sans-serif;
@@ -67,21 +67,6 @@
     .login-container button:hover {
       background: #5a67d8;
     }
-
-    .login-container .footer {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    .login-container .footer a {
-      color: #667eea;
-      text-decoration: none;
-    }
-
-    .login-container .footer a:hover {
-      text-decoration: underline;
-    }
     
     .error-message {
       color: #e53e3e;
@@ -93,53 +78,104 @@
       padding: 8px;
       border-radius: 4px;
     }
+    
+    .debug-info {
+      margin-top: 15px;
+      padding: 10px;
+      background: #f0f0f0;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #666;
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div class="login-container">
-    <h2>Login</h2>
-    <form action="#" method="post" onsubmit="return validateForm()">
+    <h2>🔐 Flash Line Cargo Login</h2>
+    <form onsubmit="return handleLogin(event)">
       <label for="username">Username</label>
-      <input type="text" id="username" name="username" placeholder="Enter your username" required />
+      <input type="text" id="username" name="username" placeholder="Enter admin" value="admin" required />
 
       <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="Enter your password" required />
+      <input type="password" id="password" name="password" placeholder="Enter 123456" value="123456" required />
 
       <button type="submit">Login</button>
       <p id="error-message" class="error-message"></p>
+      
+      <!-- Debug panel (remove in production) -->
+      <div id="debug-info" class="debug-info">
+        <strong>Debug Info:</strong><br>
+        Current: <span id="current-path"></span><br>
+        Trying: <span id="target-path"></span>
+      </div>
     </form>
   </div>
   
   <script>
-    // Set your credentials here (for demo purposes)
+    // Credentials
     const VALID_USERNAME = "admin";
     const VALID_PASSWORD = "123456";
     
-    function validateForm() {
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value.trim(); // Fixed: added .value
-      const errorMessage = document.getElementById("error-message");
+    function handleLogin(e) {
+      e.preventDefault(); // Prevent form submission
       
-      // Check if fields are empty
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorMessage = document.getElementById("error-message");
+      const debugInfo = document.getElementById("debug-info");
+      const currentPathSpan = document.getElementById("current-path");
+      const targetPathSpan = document.getElementById("target-path");
+      
+      // Show debug info (remove these lines in production)
+      debugInfo.style.display = "block";
+      currentPathSpan.textContent = window.location.href;
+      
+      // Validate
       if (username === "" || password === "") {
         errorMessage.style.display = "block";
         errorMessage.textContent = "Username and password are required.";
         return false;
       }
       
-      // Check credentials
       if (username === VALID_USERNAME && password === VALID_PASSWORD) {
-        // Success: redirect to cargo admin panel page
         errorMessage.style.display = "none";
-        window.location.href = "/cargo_admin_panel.html"; // Change this to your home page
-        return false; // Prevent form submission since we're redirecting
+        
+        // 🔧 PATH OPTIONS - Try these in order:
+        
+        // Option 1: Same folder (most common)
+        let targetUrl = "cargo_admin_panel.html";
+        
+        // Option 2: If admin panel is in a subfolder called "admin"
+        // let targetUrl = "admin/cargo_admin_panel.html";
+        
+        // Option 3: If admin panel is in parent folder
+        // let targetUrl = "../cargo_admin_panel.html";
+        
+        // Option 4: Root relative (if both are in root)
+        // let targetUrl = "/cargo_admin_panel.html";
+        
+        // Show where we're going
+        targetPathSpan.textContent = targetUrl;
+        
+        // Redirect with slight delay to see debug info
+        setTimeout(() => {
+          window.location.href = targetUrl;
+        }, 500);
+        
+        return false;
       } else {
-        // Failed: show error
         errorMessage.style.display = "block";
         errorMessage.textContent = "Incorrect username or password.";
         return false;
       }
     }
+    
+    // Auto-fill for testing (remove in production)
+    window.onload = function() {
+      console.log("Current page:", window.location.href);
+      console.log("Expected admin file: cargo_admin_panel.html");
+    };
   </script>
 </body>
 </html>
