@@ -140,6 +140,7 @@
       
       if (username === VALID_USERNAME && password === VALID_PASSWORD) {
         errorMessage.style.display = "none";
+<<<<<<< HEAD
         
         // 🔧 PATH OPTIONS - Try these in order:
         
@@ -164,6 +165,10 @@
         }, 500);
         
         return false;
+=======
+        window.location.href = "cargo_admin_panel.html"; // Change this to your home page
+        return false; // Prevent form submission since we're redirecting
+>>>>>>> edb6f309435582deae4e5946476e9212b53d251c
       } else {
         errorMessage.style.display = "block";
         errorMessage.textContent = "Incorrect username or password.";
