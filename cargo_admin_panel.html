@@ -607,6 +607,7 @@ function generateBillDetailHTML(rows, editable, billIndex) {
     ? `<select class="combo-box editable" id="field-delivery-${billIndex}">
         <option value="Pickup" ${deliveryValue === 'Pickup' ? 'selected' : ''}>Pickup</option>
         <option value="Door to Door" ${deliveryValue === 'Door to Door' ? 'selected' : ''}>Door to Door</option>
+		<option value="Transport" ${deliveryValue === 'Transport' ? 'selected' : ''}>Transport</option>
       </select>`
     : `<div class="result-value">${deliveryValue || '-'}</div>`;
 
